@@ -1,20 +1,39 @@
 package com.monolieta.pandora.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.monolieta.pandora.Greeting
-import android.widget.TextView
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            Surface(color = MaterialTheme.colors.background) {
+                Greeting(greet())
+            }
+        }
+    }
+}
 
 fun greet(): String {
     return Greeting().greeting()
 }
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+@Composable
+fun Greeting(name: String) {
+    Text(text = "$name!")
+}
 
-        val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greet()
-    }
+@Composable
+@Preview(showBackground = true)
+fun DefaultPreview() {
+    Greeting(name = greet())
 }

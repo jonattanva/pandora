@@ -6,24 +6,54 @@ plugins {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+
+    implementation("androidx.compose.ui:ui:1.0.1")
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.compose.material:material:1.0.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.0.1")
+
+    implementation("io.coil-kt:coil:1.3.2")
+    implementation("io.coil-kt:coil-compose:1.3.2")
+
+    debugImplementation("androidx.compose.ui:ui-tooling:1.0.1")
 }
 
 android {
     compileSdk = 31
+
     defaultConfig {
         applicationId = "com.monolieta.pandora.android"
         minSdk = 21
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.1"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
