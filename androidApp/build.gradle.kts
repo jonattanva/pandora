@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
-    id("com.squareup.sqldelight")
     kotlin("android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 dependencies {
@@ -20,6 +21,10 @@ dependencies {
 
     implementation("io.coil-kt:coil:1.3.2")
     implementation("io.coil-kt:coil-compose:1.3.2")
+
+    implementation(platform("com.google.firebase:firebase-bom:28.3.1"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     debugImplementation("androidx.compose.ui:ui-tooling:1.0.1")
 }
@@ -55,11 +60,5 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-}
-
-sqldelight {
-    database("Pandora") {
-        packageName = "com.monolieta"
     }
 }

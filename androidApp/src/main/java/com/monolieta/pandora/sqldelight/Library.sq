@@ -1,3 +1,0 @@
-CREATE TABLE library(
-    url TEXT NOT NULL
-);

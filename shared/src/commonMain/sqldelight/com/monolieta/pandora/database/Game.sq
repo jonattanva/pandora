@@ -1,0 +1,18 @@
+CREATE TABLE Game (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    cover TEXT NOT NULL
+);
+
+findAll:
+SELECT * FROM Game;
+
+findById:
+SELECT * FROM Game WHERE id = ?;
+
+insert:
+INSERT INTO Game(id, name, description, cover) VALUES(?, ?, ?, ?);
+
+update:
+UPDATE Game SET name = ?, description = ?, cover = ? WHERE id = ?;
