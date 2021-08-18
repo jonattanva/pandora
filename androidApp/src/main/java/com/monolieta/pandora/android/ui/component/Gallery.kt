@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun Gallery() {
     val state = rememberLazyListState()
     LazyColumn(state = state) {
-        items(20) {
+        items(100) {
             Cover(url = "https://developer.android.com/images/brand/Android_Robot.png")
         }
     }
