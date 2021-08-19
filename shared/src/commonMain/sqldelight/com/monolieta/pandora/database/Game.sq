@@ -1,8 +1,7 @@
 CREATE TABLE Game (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
-    cover TEXT NOT NULL
+    description TEXT NOT NULL
 );
 
 findAll:
@@ -12,7 +11,10 @@ findById:
 SELECT * FROM Game WHERE id = ?;
 
 insert:
-INSERT INTO Game(id, name, description, cover) VALUES(?, ?, ?, ?);
+INSERT INTO Game(id, name, description) VALUES(?, ?, ?);
 
 update:
-UPDATE Game SET name = ?, description = ?, cover = ? WHERE id = ?;
+UPDATE Game SET name = ?, description = ? WHERE id = ?;
+
+exists:
+SELECT EXISTS (SELECT id FROM Game WHERE id = ?);

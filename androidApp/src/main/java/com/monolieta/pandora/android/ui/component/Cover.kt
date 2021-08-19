@@ -1,10 +1,12 @@
-package com.monolieta.pandora.android.ui
+package com.monolieta.pandora.android.ui.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.monolieta.pandora.android.R
 
@@ -16,12 +18,11 @@ fun Cover(url: String) {
             crossfade(true)
         })
 
-    Box {
-        Image(
-            painter = painter,
-            contentDescription = stringResource(id = R.string.cover_content_description)
-        )
-    }
+    Image(
+        painter = painter,
+        contentDescription = stringResource(id = R.string.cover_content_description),
+        modifier = Modifier.size(128.dp)
+    )
 }
 
 @Composable

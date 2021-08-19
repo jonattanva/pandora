@@ -32,6 +32,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-core:1.6.2")
                 implementation("com.squareup.sqldelight:runtime:1.5.0")
+                implementation("com.squareup.sqldelight:coroutines-extensions:1.5.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
             }
         }

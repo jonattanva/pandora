@@ -17,6 +17,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.1")
     implementation("androidx.compose.material:material:1.0.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.0.1")
+    implementation("androidx.compose.ui:ui-tooling:1.1.0-alpha01")
     implementation("androidx.compose.material:material-icons-extended:1.0.1")
 
     implementation("io.coil-kt:coil:1.3.2")
