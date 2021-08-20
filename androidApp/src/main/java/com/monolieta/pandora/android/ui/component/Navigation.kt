@@ -4,13 +4,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.monolieta.pandora.android.ui.Screen
+import com.monolieta.pandora.android.home.Screen
 
 @Composable
 fun Navigation(navController: NavHostController, items: Array<Screen>) {
@@ -42,10 +40,4 @@ fun Navigation(navController: NavHostController, items: Array<Screen>) {
             )
         }
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun DefaultPreview() {
-    Navigation(navController = rememberNavController(), items = Screen.values())
 }

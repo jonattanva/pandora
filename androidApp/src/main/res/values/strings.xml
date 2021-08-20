@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Pandora</string>
     <string name="cover_content_description">Cover</string>
-    <string name="my_library">Mi librería</string>
+    <string name="library">Mi librería</string>
     <string name="home">Inicio</string>
     <string name="search">Buscar</string>
 </resources>
