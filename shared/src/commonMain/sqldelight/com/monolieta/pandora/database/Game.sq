@@ -1,20 +1,35 @@
+import java.util.List;
+
 CREATE TABLE Game (
-    id TEXT NOT NULL PRIMARY KEY,
+    key TEXT NOT NULL PRIMARY KEY,
+    release INTEGER NOT NULL,
+    developer TEXT NOT NULL,
     name TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    lastUpdate INTEGER,
+    genre TEXT AS List<String> NOT NULL,
+    platforms TEXT AS List<String> NOT NULL
 );
+
+CREATE INDEX game_name ON Game(name);
 
 findAll:
 SELECT * FROM Game;
 
 findById:
-SELECT * FROM Game WHERE id = ?;
+SELECT * FROM Game WHERE key = ?;
 
 insert:
-INSERT INTO Game(id, name, description) VALUES(?, ?, ?);
+INSERT INTO Game(key, release, lastUpdate, developer, name, description, platforms, genre) VALUES (?, ?, ?, ?, ?, ?, ?,?);
 
 update:
-UPDATE Game SET name = ?, description = ? WHERE id = ?;
+UPDATE Game SET release = ?, lastUpdate = ?, developer = ?, name = ?, description = ?, genre = ?, platforms = ? WHERE key = ?;
+
+remove:
+DELETE FROM Game WHERE key = ?;
 
 exists:
-SELECT EXISTS (SELECT id FROM Game WHERE id = ?);
+SELECT EXISTS (SELECT key FROM Game WHERE key = ?);
+
+hasGame:
+SELECT EXISTS (SELECT key FROM Game WHERE key = ? AND lastUpdate >= ?);
