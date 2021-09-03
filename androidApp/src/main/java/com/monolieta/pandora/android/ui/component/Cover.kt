@@ -1,7 +1,6 @@
 package com.monolieta.pandora.android.ui.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -10,7 +9,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.monolieta.pandora.android.R
 
-@ExperimentalCoilApi
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun Cover(url: String, modifier: Modifier = Modifier) {
     Cover(
@@ -24,11 +23,9 @@ fun Cover(url: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun Cover(painter: Painter, modifier: Modifier = Modifier) {
-    Box(modifier) {
-        Image(
-            painter,
-            contentDescription = stringResource(id = R.string.cover_content_description),
-            modifier = Modifier.matchParentSize()
-        )
-    }
+    Image(
+        painter,
+        contentDescription = stringResource(R.string.cover_content_description),
+        modifier = modifier
+    )
 }

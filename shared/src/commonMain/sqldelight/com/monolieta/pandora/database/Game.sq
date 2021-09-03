@@ -1,4 +1,4 @@
-import java.util.List;
+import kotlin.collections.List;
 
 CREATE TABLE Game (
     key TEXT NOT NULL PRIMARY KEY,
