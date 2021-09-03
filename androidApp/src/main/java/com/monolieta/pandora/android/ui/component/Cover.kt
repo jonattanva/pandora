@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
+import androidx.core.graphics.drawable.toBitmap
+import androidx.palette.graphics.Palette
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.monolieta.pandora.android.R
@@ -17,6 +19,11 @@ fun Cover(url: String, modifier: Modifier = Modifier) {
             data = url,
             builder = {
                 crossfade(true)
+                target { drawable ->
+                    Palette.Builder(drawable.toBitmap()).generate { palette ->
+                        print(palette)
+                    }
+                }
             }), modifier
     )
 }
