@@ -5,4 +5,7 @@
     <string name="library">Mi librería</string>
     <string name="home">Inicio</string>
     <string name="search">Buscar</string>
+    <string name="release_date">Release date</string>
+    <string name="genres">Genres</string>
+    <string name="platforms">Platforms</string>
 </resources>

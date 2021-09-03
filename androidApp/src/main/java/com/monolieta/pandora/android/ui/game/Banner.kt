@@ -42,10 +42,19 @@ fun Banner(@DrawableRes banner: Int, @DrawableRes cover: Int, title: String, sub
 
 @Composable
 fun Banner(banner: String, cover: String, title: String, subtitle: String) {
-    Banner(Color.Transparent) {
+    val modifier = Modifier
+    Banner(modifier) {
         Cover(
             url = banner,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onSuccess = { bitmap ->
+                val color = getVibrantColor(bitmap)
+                modifier.background(
+                    Brush.verticalGradient(
+                        listOf(color, Color.Black)
+                    )
+                )
+            }
         )
 
         Information(
@@ -58,7 +67,7 @@ fun Banner(banner: String, cover: String, title: String, subtitle: String) {
 
 @Composable
 private fun Banner(color: Color, content: @Composable () -> Unit) {
-    Column(
+    Banner(
         modifier = Modifier
             .background(
                 Brush.verticalGradient(
@@ -66,6 +75,13 @@ private fun Banner(color: Color, content: @Composable () -> Unit) {
                 )
             )
     ) {
+        content()
+    }
+}
+
+@Composable
+private fun Banner(modifier: Modifier, content: @Composable () -> Unit) {
+    Column(modifier) {
         content()
     }
 }

@@ -2,13 +2,15 @@ import kotlin.collections.List;
 
 CREATE TABLE Game (
     key TEXT NOT NULL PRIMARY KEY,
+    cover TEXT NOT NULL,
     release INTEGER NOT NULL,
     developer TEXT NOT NULL,
     name TEXT NOT NULL,
     description TEXT NOT NULL,
     lastUpdate INTEGER,
     genre TEXT AS List<String> NOT NULL,
-    platforms TEXT AS List<String> NOT NULL
+    platforms TEXT AS List<String> NOT NULL,
+    screenshots TEXT AS List<String> NOT NULL
 );
 
 CREATE INDEX game_name ON Game(name);
@@ -20,10 +22,12 @@ findById:
 SELECT * FROM Game WHERE key = ?;
 
 insert:
-INSERT INTO Game(key, release, lastUpdate, developer, name, description, platforms, genre) VALUES (?, ?, ?, ?, ?, ?, ?,?);
+INSERT INTO Game(key, release, lastUpdate, developer, cover, name, description, platforms, genre, screenshots)
+VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?);
 
 update:
-UPDATE Game SET release = ?, lastUpdate = ?, developer = ?, name = ?, description = ?, genre = ?, platforms = ? WHERE key = ?;
+UPDATE Game SET release = ?, cover = ?, lastUpdate = ?, developer = ?, name = ?, description = ?, genre = ?, platforms = ?, screenshots = ?
+WHERE key = ?;
 
 remove:
 DELETE FROM Game WHERE key = ?;

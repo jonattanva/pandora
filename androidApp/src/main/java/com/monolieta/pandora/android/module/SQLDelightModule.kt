@@ -27,7 +27,8 @@ object SQLDelightModule {
     fun provideSQLDelightDatabase(driver: SqlDriver) = Database(
         driver, Game.Adapter(
             genreAdapter = listOfStringsAdapter,
-            platformsAdapter = listOfStringsAdapter
+            platformsAdapter = listOfStringsAdapter,
+            screenshotsAdapter = listOfStringsAdapter
         )
     )
 }

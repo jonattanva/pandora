@@ -51,13 +51,16 @@ class GameRepository(
     private fun insert(game: Game) {
         repository.insert(
             key = game.key,
+            cover = game.cover,
             release = game.release,
             lastUpdate = getTimeMillis(),
             developer = game.developer,
             name = game.name,
             description = game.description,
             platforms = game.platforms,
-            genre = game.genre
+            genre = game.genre,
+            screenshots = game.screenshots
+
         )
     }
 
@@ -66,10 +69,12 @@ class GameRepository(
             release = game.release,
             lastUpdate = getTimeMillis(),
             developer = game.developer,
+            cover = game.cover,
             name = game.name,
             description = game.description,
             genre = game.genre,
             platforms = game.platforms,
+            screenshots = game.screenshots,
             key = game.key
         )
     }
