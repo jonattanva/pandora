@@ -105,7 +105,7 @@ private fun getVibrantColor(bitmap: Bitmap): Color {
 private fun Preview() {
     Banner(
         cover = R.drawable.psychonauts,
-        banner = R.drawable.psychonauts_banner,
+        banner = R.drawable.psychonauts_banner_1,
         title = "Psychonauts 2",
         subtitle = "Double Fine Productions",
     )

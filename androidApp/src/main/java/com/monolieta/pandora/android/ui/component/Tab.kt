@@ -10,27 +10,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Tab(
+fun SwipeTextTab(
     values: List<String>,
     color: Color = Color.Unspecified,
     style: TextStyle = LocalTextStyle.current
 ) {
-    Row(
-        modifier = Modifier
-            .horizontalScroll(rememberScrollState())
-    ) {
+    SwipeTab {
         values.forEach { value ->
-            Surface(
-                modifier = Modifier.padding(0.dp, 0.dp, 4.dp, 0.dp),
-                elevation = 4.dp,
-                shape = MaterialTheme.shapes.small,
-                color = MaterialTheme.colors.surface
-            ) {
+            Container {
                 Text(
                     text = value,
                     color = color,
@@ -42,10 +35,54 @@ fun Tab(
     }
 }
 
+@Composable
+fun SwipeImageTab(values: List<String>) {
+    SwipeTab {
+        values.forEach { value ->
+            Container {
+                Cover(value)
+            }
+        }
+    }
+}
+
+@Composable
+fun SwipeDrawableTab(values: List<Int>) {
+    SwipeTab {
+        values.forEach { value ->
+            Container {
+                Cover(painterResource(value))
+            }
+        }
+    }
+}
+
+@Composable
+private fun Container(content: @Composable () -> Unit) {
+    Surface(
+        modifier = Modifier.padding(0.dp, 0.dp, 4.dp, 0.dp),
+        elevation = 4.dp,
+        shape = MaterialTheme.shapes.small,
+        color = MaterialTheme.colors.surface
+    ) {
+        content()
+    }
+}
+
+@Composable
+private fun SwipeTab(content: @Composable () -> Unit) {
+    Row(
+        modifier = Modifier
+            .horizontalScroll(rememberScrollState())
+    ) {
+        content()
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    Tab(
+    SwipeTextTab(
         values = listOf("PlayStation 4", "Xbox One")
     )
 }

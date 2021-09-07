@@ -17,20 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.ui.component.DateView
-import com.monolieta.pandora.android.ui.component.Tab
+import com.monolieta.pandora.android.ui.component.SwipeDrawableTab
+import com.monolieta.pandora.android.ui.component.SwipeImageTab
+import com.monolieta.pandora.android.ui.component.SwipeTextTab
 import com.monolieta.pandora.database.Game
-
-@Composable
-fun Detail(@DrawableRes banner: Int, @DrawableRes cover: Int, game: Game) {
-    Detail(game = game) {
-        Banner(
-            banner = banner,
-            cover = cover,
-            title = game.name,
-            subtitle = game.developer
-        )
-    }
-}
 
 @Composable
 fun Detail(game: Game) {
@@ -52,63 +42,107 @@ private fun Detail(game: Game, content: @Composable () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
 
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = game.description,
-                color = Color.LightGray,
-                style = MaterialTheme.typography.body2
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
+            Content(game)
 
             Text(
-                text = stringResource(R.string.release_date),
-                color = Color.White,
-                style = MaterialTheme.typography.body1
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            DateView(
-                timestamp = game.release,
-                color = Color.LightGray,
-                style = MaterialTheme.typography.body2
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(R.string.genres),
+                text = stringResource(R.string.screenshots),
                 color = Color.LightGray,
                 style = MaterialTheme.typography.body2
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            Tab(
-                values = game.genre,
-                color = Color.DarkGray,
-                style = MaterialTheme.typography.body2
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(R.string.platforms),
-                color = Color.LightGray,
-                style = MaterialTheme.typography.body2
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Tab(
-                values = game.platforms,
-                color = Color.DarkGray,
-                style = MaterialTheme.typography.body2
-            )
+            SwipeImageTab(values = game.screenshots)
         }
     }
 }
 
+@Composable
+private fun Detail(@DrawableRes banner: Int, @DrawableRes cover: Int, game: Game) {
+    Column(modifier = Modifier.background(Color.Black)) {
+        Banner(
+            banner = banner,
+            cover = cover,
+            title = game.name,
+            subtitle = game.developer
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            Content(game)
+
+            Text(
+                text = stringResource(R.string.screenshots),
+                color = Color.LightGray,
+                style = MaterialTheme.typography.body2
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            SwipeDrawableTab(listOf(banner, R.drawable.psychonauts_banner_2))
+        }
+    }
+}
+
+@Composable
+private fun Content(game: Game) {
+    Text(
+        text = game.description,
+        color = Color.LightGray,
+        style = MaterialTheme.typography.body2
+    )
+
+    Spacer(modifier = Modifier.height(8.dp))
+
+    Text(
+        text = stringResource(R.string.release_date),
+        color = Color.White,
+        style = MaterialTheme.typography.body1
+    )
+
+    Spacer(modifier = Modifier.height(4.dp))
+
+    DateView(
+        timestamp = game.release,
+        color = Color.LightGray,
+        style = MaterialTheme.typography.body2
+    )
+
+    Spacer(modifier = Modifier.height(8.dp))
+
+    Text(
+        text = stringResource(R.string.genres),
+        color = Color.LightGray,
+        style = MaterialTheme.typography.body2
+    )
+
+    Spacer(modifier = Modifier.height(4.dp))
+
+    SwipeTextTab(
+        values = game.genre,
+        color = Color.DarkGray,
+        style = MaterialTheme.typography.body2
+    )
+
+    Spacer(modifier = Modifier.height(8.dp))
+
+    Text(
+        text = stringResource(R.string.platforms),
+        color = Color.LightGray,
+        style = MaterialTheme.typography.body2
+    )
+
+    Spacer(modifier = Modifier.height(4.dp))
+
+    SwipeTextTab(
+        values = game.platforms,
+        color = Color.DarkGray,
+        style = MaterialTheme.typography.body2
+    )
+
+    Spacer(modifier = Modifier.height(8.dp))
+}
 
 @Preview(name = "Light Mode")
 @Preview(
@@ -119,7 +153,7 @@ private fun Detail(game: Game, content: @Composable () -> Unit) {
 @Composable
 private fun Preview() {
     Detail(
-        banner = R.drawable.psychonauts_banner,
+        banner = R.drawable.psychonauts_banner_1,
         cover = R.drawable.psychonauts,
         game = Game(
             key = "ea33b427-7483-4be4-a2f9-ac9cc4426cb1",
