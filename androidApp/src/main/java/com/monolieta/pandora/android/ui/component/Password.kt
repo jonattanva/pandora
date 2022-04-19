@@ -19,14 +19,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.monolieta.pandora.android.ui.state.InputState
-import com.monolieta.pandora.android.ui.theme.MyApplicationTheme
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
 fun Password(
@@ -81,15 +83,18 @@ fun Password(
             maxLines = 1,
             isError = state.isError(),
             visualTransformation = visualTransformation,
-            keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
             keyboardActions = KeyboardActions(
                 onDone = { onDone() }
+            ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Password
             )
         )
 
         state.error()?.let {
             Text(
-                it,
+                stringResource(it),
                 fontSize = 12.sp,
                 color = Color.Red,
                 modifier = Modifier.padding(start = 14.dp, top = 4.dp)
@@ -102,7 +107,7 @@ fun Password(
 @Composable
 @Preview(name = "Dark Mode")
 fun PasswordDarkMode() {
-    MyApplicationTheme(darkTheme = true) {
+    PandoraTheme(darkTheme = true) {
         Password("Password", InputState())
     }
 }
@@ -110,7 +115,7 @@ fun PasswordDarkMode() {
 @Composable
 @Preview(name = "Light Mode")
 fun PasswordLightMode() {
-    MyApplicationTheme(darkTheme = false) {
+    PandoraTheme(darkTheme = false) {
         Password("Password", InputState())
     }
 }

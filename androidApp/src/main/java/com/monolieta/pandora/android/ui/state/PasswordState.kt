@@ -1,27 +1,25 @@
 package com.monolieta.pandora.android.ui.state
 
+import com.monolieta.pandora.android.R
+import com.monolieta.pandora.extra.isPasswordAndConfirmationValid
+import com.monolieta.pandora.extra.isPasswordValid
+
 class PasswordState : InputState(
     validator = ::isPasswordValid,
     errorFor = ::passwordValidationError
 )
 
 class ConfirmPasswordState(private val passwordState: PasswordState) : InputState() {
-    override val isValid
-        get() = passwordAndConfirmationValid(passwordState.value, value)
 
-    override fun error(): String? {
+    override val isValid
+        get() = isPasswordAndConfirmationValid(passwordState.value, value)
+
+    override fun error(): Int? {
         return if (isError()) {
             passwordConfirmationError()
         } else null
     }
 }
 
-private fun isPasswordValid(password: String): Boolean = password.length > 7
-
-private fun passwordAndConfirmationValid(password: String, confirmedPassword: String): Boolean =
-    isPasswordValid(password) && password == confirmedPassword
-
-@Suppress("UNUSED_PARAMETER")
-private fun passwordValidationError(password: String): String = "Invalid password"
-
-private fun passwordConfirmationError(): String = "Passwords don't match"
+private fun passwordValidationError(): Int = R.string.invalid_password
+private fun passwordConfirmationError(): Int = R.string.passwords_do_not_match

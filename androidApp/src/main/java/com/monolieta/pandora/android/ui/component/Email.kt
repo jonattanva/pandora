@@ -1,5 +1,6 @@
 package com.monolieta.pandora.android.ui.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,13 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.monolieta.pandora.android.ui.state.InputState
-import com.monolieta.pandora.android.ui.theme.MyApplicationTheme
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
 fun Email(
@@ -58,12 +60,12 @@ fun Email(
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = imeAction,
                 keyboardType = KeyboardType.Email
-            ),
+            )
         )
 
         state.error()?.let {
             Text(
-                it,
+                stringResource(it),
                 fontSize = 12.sp,
                 color = Color.Red,
                 modifier = Modifier.padding(start = 14.dp, top = 4.dp)
@@ -73,10 +75,11 @@ fun Email(
 
 }
 
+/*
 @Composable
 @Preview(name = "Dark Mode")
 fun EmailDarkMode() {
-    MyApplicationTheme(darkTheme = true) {
+    PandoraTheme(darkTheme = true) {
         Email("Email", InputState())
     }
 }
@@ -84,7 +87,20 @@ fun EmailDarkMode() {
 @Composable
 @Preview(name = "Light Mode")
 fun EmailLightMode() {
-    MyApplicationTheme(darkTheme = false) {
+    PandoraTheme(darkTheme = false) {
+        Email("Email", InputState())
+    }
+}
+*/
+@Preview(name = "Light Mode")
+@Preview(
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true
+)
+@Composable
+fun PreviewEmailInput() {
+    PandoraTheme {
         Email("Email", InputState())
     }
 }

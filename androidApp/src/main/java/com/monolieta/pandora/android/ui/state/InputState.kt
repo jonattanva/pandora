@@ -6,12 +6,12 @@ import androidx.compose.runtime.setValue
 
 open class InputState(
     private val validator: (String) -> Boolean = { true },
-    private val errorFor: (String) -> String = { "" }
+    private val errorFor: () -> Int? = { null }
 ) {
     var value: String by mutableStateOf("")
-    var isFocused: Boolean by mutableStateOf(false)
-    var isFocusedDirty: Boolean by mutableStateOf(false)
 
+    private var isFocused: Boolean by mutableStateOf(false)
+    private var isFocusedDirty: Boolean by mutableStateOf(false)
     private var displayErrors: Boolean by mutableStateOf(false)
 
     open val isValid: Boolean
@@ -32,9 +32,9 @@ open class InputState(
 
     fun isError() = !isValid && displayErrors
 
-    open fun error(): String? {
+    open fun error(): Int? {
         return if (isError()) {
-            errorFor(value)
+            errorFor()
         } else null
     }
 }

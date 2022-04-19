@@ -43,5 +43,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
 
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
 }

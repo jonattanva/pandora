@@ -1,25 +1,20 @@
 <resources>
     <string name="app_name">Pandora</string>
     <string name="email">Email</string>
-    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="birthdate">Birthdate</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="recover_failed">Please enter correct username</string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="sign_in">SIGN IN</string>
     <string name="recover">Recover</string>
     <string name="create_account">Create account</string>
-    <string name="create_account_action">CREATE ACCOUNT</string>
+    <string name="forgot_your_password">Forgot your password?</string>
     <string name="sign_in_instead">"Sign in instead</string>
-
-
-    <string name="name">Name</string>
-    <string name="next">Next</string>
-    <string name="login_title">Sign in to Pandora</string>
-
-    <string name="recover_title">Recover password</string>
-    <string name="register_title">Register</string>
-    <string name="register">Register</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="next_action">NEXT</string>
+    <string name="create_account_action">CREATE ACCOUNT</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="recover_failed">Please enter correct username</string>
+    <string name="invalid_password">Use 8 characters or more for your password</string>
+    <string name="passwords_do_not_match">Passwords don\'t match</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="account_already_exists">An account with the given email already exists</string>
+    <string name="sign_up_failed">Sign up failed</string>
 </resources>

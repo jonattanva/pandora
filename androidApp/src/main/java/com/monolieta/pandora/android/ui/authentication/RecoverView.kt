@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -16,8 +15,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.ui.component.Email
+import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.state.EmailState
-import com.monolieta.pandora.android.ui.theme.MyApplicationTheme
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
 fun RecoverView(
@@ -41,12 +41,14 @@ fun RecoverView(
     }*/
 
     FormView(
+        loading = false,
         onClick = ::clickHandle
     )
 }
 
 @Composable
 private fun FormView(
+    loading: Boolean,
     onClick: (String) -> Unit
 ) {
     val emailState = remember { EmailState() }
@@ -55,12 +57,7 @@ private fun FormView(
         onClick(emailState.value)
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Form(loading = loading) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Email(
@@ -76,7 +73,7 @@ private fun FormView(
                 .fillMaxWidth()
                 .height(48.dp)
         ) {
-            Text(text = stringResource(R.string.recover))
+            Text(text = stringResource(R.string.next_action))
         }
     }
 }
@@ -85,7 +82,7 @@ private fun FormView(
 @Preview(name = "Dark Mode")
 fun RecoverViewDarkMode() {
     val navController = rememberNavController()
-    MyApplicationTheme(darkTheme = true) {
+    PandoraTheme(darkTheme = true) {
         RecoverView(navigation = navController)
     }
 }
@@ -94,7 +91,7 @@ fun RecoverViewDarkMode() {
 @Preview(name = "Light Mode")
 fun RecoverViewLightMode() {
     val navController = rememberNavController()
-    MyApplicationTheme(darkTheme = false) {
+    PandoraTheme(darkTheme = false) {
         RecoverView(navigation = navController)
     }
 }

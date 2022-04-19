@@ -23,8 +23,9 @@ import com.monolieta.pandora.android.ui.component.*
 import com.monolieta.pandora.android.ui.state.ConfirmPasswordState
 import com.monolieta.pandora.android.ui.state.EmailState
 import com.monolieta.pandora.android.ui.state.PasswordState
-import com.monolieta.pandora.android.ui.theme.MyApplicationTheme
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 import com.monolieta.pandora.model.User
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterView(
@@ -36,9 +37,9 @@ fun RegisterView(
     val registerResult = viewModel.registerResult
 
     fun onClick(user: User) {
-        /*scope.launch {
-            viewModel.signUp(user, confirm)
-        }*/
+        scope.launch {
+            viewModel.signUp(user)
+        }
     }
 /*
     if (registerResult?.error != null) {
@@ -46,7 +47,9 @@ fun RegisterView(
             .show()
     }*/
 
+
     FormView(
+        loading = false,
         navigation = navigation,
         onClick = ::onClick
     )
@@ -54,6 +57,7 @@ fun RegisterView(
 
 @Composable
 private fun FormView(
+    loading: Boolean,
     navigation: NavHostController,
     onClick: (User) -> Unit
 ) {
@@ -75,13 +79,7 @@ private fun FormView(
         )
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
+    Form(loading = loading) {
         Spacer(modifier = Modifier.height(16.dp))
         Email(
             text = stringResource(R.string.email),
@@ -137,7 +135,7 @@ private fun FormView(
 @Preview(name = "Dark Mode")
 fun AccountViewDarkMode() {
     val navController = rememberNavController()
-    MyApplicationTheme(darkTheme = true) {
+    PandoraTheme(darkTheme = true) {
         RegisterView(navigation = navController)
     }
 }
@@ -146,7 +144,7 @@ fun AccountViewDarkMode() {
 @Preview(name = "Light Mode")
 fun AccountViewLightMode() {
     val navController = rememberNavController()
-    MyApplicationTheme(darkTheme = false) {
+    PandoraTheme(darkTheme = false) {
         RegisterView(navigation = navController)
     }
 }

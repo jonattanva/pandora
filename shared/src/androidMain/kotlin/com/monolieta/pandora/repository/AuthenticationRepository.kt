@@ -1,10 +1,12 @@
 package com.monolieta.pandora.repository
 
-import android.util.Patterns
+import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.kotlin.core.Amplify
-import com.monolieta.pandora.Result
+import com.monolieta.pandora.extra.Result
+import com.monolieta.pandora.extra.isEmailValid
+import com.monolieta.pandora.extra.isPasswordValid
 import com.monolieta.pandora.model.User
 import java.io.IOException
 
@@ -57,55 +59,38 @@ actual class AuthenticationRepository actual constructor() {
         }
     }
 
-    actual suspend fun signUp(user: User, confirm: String): Result<User> {
+    actual suspend fun signUp(user: User): Result<User> {
         try {
-            /*
-            val email = user.email.trim()
-            val username = user.username.trim()
-            val password = user.password.trim()
-
-            if (email.isEmpty()) {
-                throw IOException("The email is required")
+            if (!isEmailValid(user.email)) {
+                return Result.Error(AuthenticationException.InvalidEmailException)
             }
 
-            if (!isUserNameValid(username)) {
-                throw IOException("The username is required")
-            }
-
-            if (!isPasswordValid(password)) {
-                throw IOException("The password is required")
-            }
-
-            if (password != confirm) {
-                throw IOException("Those passwords didn't match.")
+            if (!isPasswordValid(user.password)) {
+                return Result.Error(AuthenticationException.InvalidPasswordException)
             }
 
             val options = AuthSignUpOptions.builder()
-                .userAttribute(AuthUserAttributeKey.email(), email)
+                .userAttribute(AuthUserAttributeKey.email(), user.email)
                 .build()
 
-            val result = Amplify.Auth.signUp(username, password, options)
+            val result = Amplify.Auth.signUp(user.email, user.password, options)
             if (result.isSignUpComplete) {
                 result.user?.let {
                     return Result.Success(
                         user.copy(
                             id = it.userId,
-                            username = ,
-                            password = "",
-                            email = email
+                            password = ""
                         )
                     )
                 }
-            }*/
+            }
 
             throw IOException("Sign up not complete")
         } catch (error: Exception) {
+            if (error is AuthException.UsernameExistsException) {
+                return Result.Error(AuthenticationException.UsernameExistsException)
+            }
             return Result.Error(IOException("Sign up failed", error))
         }
     }
-
-    private fun isUserNameValid(username: String): Boolean =
-        username.contains('@') && Patterns.EMAIL_ADDRESS.matcher(username).matches()
-
-    private fun isPasswordValid(password: String): Boolean = password.length > 7
 }

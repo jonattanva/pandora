@@ -1,6 +1,6 @@
 package com.monolieta.pandora.repository
 
-import com.monolieta.pandora.Result
+import com.monolieta.pandora.extra.Result
 import com.monolieta.pandora.model.User
 
 actual class AuthenticationRepository actual constructor() {
@@ -12,10 +12,7 @@ actual class AuthenticationRepository actual constructor() {
         TODO("Not yet implemented")
     }
 
-    actual suspend fun signUp(
-        user: User,
-        confirm: String
-    ): Result<User> {
+    actual suspend fun signUp(user: User): Result<User> {
         TODO("Not yet implemented")
     }
 }

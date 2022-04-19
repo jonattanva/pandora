@@ -1,4 +1,4 @@
-package com.monolieta.pandora
+package com.monolieta.pandora.extra
 
 import android.content.Context
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin

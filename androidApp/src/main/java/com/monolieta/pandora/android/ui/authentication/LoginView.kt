@@ -18,9 +18,10 @@ import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.View
 import com.monolieta.pandora.android.ui.component.Email
+import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.component.Password
 import com.monolieta.pandora.android.ui.state.InputState
-import com.monolieta.pandora.android.ui.theme.MyApplicationTheme
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
 fun LoginView(
@@ -43,6 +44,7 @@ fun LoginView(
     }*/
 
     FormView(
+        loading = false,
         onClick = ::clickHandle,
         navigation = navigation
     )
@@ -50,6 +52,7 @@ fun LoginView(
 
 @Composable
 private fun FormView(
+    loading: Boolean,
     navigation: NavHostController,
     onClick: (String, String) -> Unit
 ) {
@@ -60,12 +63,7 @@ private fun FormView(
         onClick(emailState.value, passwordState.value)
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Form(loading = loading) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Email(
@@ -85,7 +83,6 @@ private fun FormView(
         Text(
             stringResource(R.string.forgot_your_password),
             modifier = Modifier
-                .align(Alignment.End)
                 .clickable { navigation.navigate(View.Recover.route) }
         )
 
@@ -119,7 +116,7 @@ private fun FormView(
 @Preview(name = "Dark Mode")
 fun LoginViewDarkMode() {
     val navController = rememberNavController()
-    MyApplicationTheme(darkTheme = true) {
+    PandoraTheme(darkTheme = true) {
         LoginView(navigation = navController)
     }
 }
@@ -128,7 +125,7 @@ fun LoginViewDarkMode() {
 @Preview(name = "Light Mode")
 fun LoginViewLightMode() {
     val navController = rememberNavController()
-    MyApplicationTheme(darkTheme = false) {
+    PandoraTheme(darkTheme = false) {
         LoginView(navigation = navController)
     }
 }

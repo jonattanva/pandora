@@ -1,15 +1,11 @@
 package com.monolieta.pandora.android.ui.state
 
-import android.util.Patterns
+import com.monolieta.pandora.android.R
+import com.monolieta.pandora.extra.isEmailValid
 
 class EmailState : InputState(
     validator = ::isEmailValid,
     errorFor = ::emailValidationError
 )
 
-private fun isEmailValid(email: String): Boolean =
-    email.contains('@') && Patterns.EMAIL_ADDRESS.matcher(email).matches()
-
-
-@Suppress("UNUSED_PARAMETER")
-private fun emailValidationError(email: String): String = "Invalid email"
+private fun emailValidationError(): Int = R.string.invalid_email
