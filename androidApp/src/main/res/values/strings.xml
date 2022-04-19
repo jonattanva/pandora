@@ -1,12 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Pandora</string>
-    <string name="cover_content_description">Cover</string>
-    <string name="library">Mi librería</string>
-    <string name="home">Inicio</string>
-    <string name="search">Buscar</string>
-    <string name="release_date">Release date</string>
-    <string name="genres">Genres</string>
-    <string name="platforms">Platforms</string>
-    <string name="screenshots">Screenshots</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="recover_failed">Please enter correct username</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="recover">Recover</string>
+    <string name="create_account">Create account</string>
+    <string name="create_account_action">CREATE ACCOUNT</string>
+    <string name="sign_in_instead">"Sign in instead</string>
+
+
+    <string name="name">Name</string>
+    <string name="next">Next</string>
+    <string name="login_title">Sign in to Pandora</string>
+
+    <string name="recover_title">Recover password</string>
+    <string name="register_title">Register</string>
+    <string name="register">Register</string>
 </resources>
