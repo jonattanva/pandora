@@ -3,7 +3,6 @@ package com.monolieta.pandora.repository
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
-import com.amplifyframework.auth.result.step.AuthSignInStep.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD
 import com.amplifyframework.kotlin.core.Amplify
 import com.monolieta.pandora.extra.Result
 import com.monolieta.pandora.extra.isEmailValid
@@ -37,34 +36,30 @@ actual class AuthenticationRepository actual constructor() {
                 }
             }
 
-            if (result.nextStep.signInStep == CONFIRM_SIGN_IN_WITH_NEW_PASSWORD) {
-                return Result.Error(AuthenticationException.ConfirmSignInWithNewPassword)
-            }
-
             throw IOException("Sign in not complete")
         } catch (error: Exception) {
+            if (error is AuthException.UserNotConfirmedException) {
+                return Result.Error(AuthenticationException.UserNotConfirmedException)
+            }
             return Result.Error(IOException("Error sign in", error))
         }
     }
 
-    actual suspend fun confirmSignUp(username: String, code: String): Result<User> {
+    actual suspend fun confirmSignUp(user: User, code: String): Result<User> {
         try {
+            if (!isEmailValid(user.email)) {
+                return Result.Error(AuthenticationException.InvalidEmailException)
+            }
+
             if (code.isEmpty()) {
                 return Result.Error(AuthenticationException.InvalidCodeException)
             }
 
-            val result = Amplify.Auth.confirmSignUp(username, code)
+            val result = Amplify.Auth.confirmSignUp(user.email, code)
             if (result.isSignUpComplete) {
-                val current = Amplify.Auth.getCurrentUser()
-                if (current != null) {
-                    return Result.Success(
-                        User(
-                            id = current.userId,
-                            email = current.username,
-                            password = ""
-                        )
-                    )
-                }
+                return Result.Success(
+                    user.copy(verified = true)
+                )
             }
 
             throw IOException("Confirm sign up not complete")

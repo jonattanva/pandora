@@ -38,6 +38,5 @@ fun Form(loading: Boolean, Content: @Composable () -> Unit) {
                 CircularProgressIndicator()
             }
         }
-
     }
 }

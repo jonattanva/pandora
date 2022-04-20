@@ -1,5 +1,6 @@
 package com.monolieta.pandora.android.ui.authentication
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -9,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,13 +22,14 @@ import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.ui.component.Number
 import com.monolieta.pandora.android.ui.component.Form
-import com.monolieta.pandora.android.ui.state.InputState
+import com.monolieta.pandora.android.ui.state.CodeState
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
+import com.monolieta.pandora.model.User
 import kotlinx.coroutines.launch
 
 @Composable
-fun ConfirmView(
-    username: String?,
+fun VerificationView(
+    user: User?,
     navigation: NavHostController,
     viewModel: AuthenticationViewModel = viewModel(factory = AuthenticationViewModelFactory())
 ) {
@@ -36,8 +40,7 @@ fun ConfirmView(
 
     fun clickHandle(code: String) {
         scope.launch {
-            username?.let {
-                // TODO: NO ESTA ENVIANDO AL HOME!!
+            user?.let {
                 viewModel.confirmSignUp(it, code)
             }
         }
@@ -45,8 +48,8 @@ fun ConfirmView(
 
     fun resendCodeHandle() {
         scope.launch {
-            username?.let {
-                viewModel.resendSignUpCode(it)
+            user?.let {
+                viewModel.resendSignUpCode(it.email)
             }
         }
     }
@@ -69,8 +72,10 @@ private fun FormView(
     onClick: (String) -> Unit,
     onResendCode: () -> Unit
 ) {
-    val codeState = remember { InputState() }
+    val codeState = remember { CodeState() }
+    val codeFocusRequest = remember { FocusRequester() }
 
+    Log.e("TAG", "FormView: $codeState")
     fun onSubmit() {
         onClick(codeState.value)
     }
@@ -82,7 +87,8 @@ private fun FormView(
         Number(
             text = stringResource(R.string.code),
             state = codeState,
-            onDone = ::onSubmit
+            onDone = ::onSubmit,
+            modifier = Modifier.focusRequester(codeFocusRequest)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -90,7 +96,8 @@ private fun FormView(
             onClick = ::onSubmit,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(48.dp),
+            enabled = codeState.isValid
         ) {
             Text(text = stringResource(R.string.verify_action))
         }
@@ -114,8 +121,11 @@ private fun FormView(
 fun ConfirmViewDarkMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = true) {
-        ConfirmView(
-            username = "Solid Snake",
+        VerificationView(
+            user = User(
+                id = "1",
+                email = "solid.snake@monolieta.com"
+            ),
             navigation = navController
         )
     }
@@ -126,8 +136,11 @@ fun ConfirmViewDarkMode() {
 fun ConfirmViewLightMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = false) {
-        ConfirmView(
-            username = "Solid Snake",
+        VerificationView(
+            user = User(
+                id = "1",
+                email = "solid.snake@monolieta.com"
+            ),
             navigation = navController
         )
     }

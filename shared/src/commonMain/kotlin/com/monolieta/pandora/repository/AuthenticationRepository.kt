@@ -13,7 +13,7 @@ expect class AuthenticationRepository() {
     suspend fun signUp(user: User): Result<User>
 
     suspend fun confirmSignUp(
-        username: String,
+        user: User,
         code: String
     ): Result<User>
 

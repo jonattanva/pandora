@@ -1,5 +1,7 @@
 package com.monolieta.pandora.extra
 
+fun isCodeValid(code: String): Boolean = code.length == 6
+
 fun isPasswordValid(password: String): Boolean = password.length > 7
 
 fun isPasswordAndConfirmationValid(password: String, confirmedPassword: String): Boolean =

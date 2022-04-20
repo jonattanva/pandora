@@ -11,7 +11,6 @@ import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.View
 import com.monolieta.pandora.model.User
 import com.monolieta.pandora.repository.AuthenticationException
-import com.monolieta.pandora.repository.AuthenticationException.Companion.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD
 import com.monolieta.pandora.repository.AuthenticationException.Companion.INVALID_EMAIL_EXCEPTION
 import com.monolieta.pandora.repository.AuthenticationException.Companion.INVALID_PASSWORD_EXCEPTION
 import com.monolieta.pandora.repository.AuthenticationException.Companion.USERNAME_EXISTS_EXCEPTION
@@ -41,23 +40,32 @@ class AuthenticationViewModel(
             return
         }
 
-        if (getException(result)?.code == CONFIRM_SIGN_IN_WITH_NEW_PASSWORD) {
-            loading = false
+        loading = false
+        val exception = getException(result)
+        if (exception?.code == AuthenticationException.USER_NOT_CONFIRMED_EXCEPTION) {
             authenticationResult = AuthenticationResult(
-                route = "${View.Confirm.route}/${username}"
+                route = "${View.Confirm.route}/ /${username}"
             )
             return
         }
 
-        loading = false
-        authenticationResult = AuthenticationResult(error = getError(result, R.string.login_failed))
+        authenticationResult = AuthenticationResult(
+            error = getError(result, R.string.login_failed)
+        )
     }
 
     suspend fun resendSignUpCode(username: String) {
         val result = authenticationRepository.resendSignUpCode(username)
+        if (result is Result.Success) {
+
+        }
+
+        authenticationResult = AuthenticationResult(
+            error = getError(result, R.string.confirm_sign_in_failed)
+        )
     }
 
-    suspend fun confirmSignUp(username: String, code: String) {
+    suspend fun confirmSignUp(user: User, code: String) {
         if (loading) {
             return
         }
@@ -65,7 +73,7 @@ class AuthenticationViewModel(
         loading = true
         authenticationResult = null
 
-        val result = authenticationRepository.confirmSignUp(username, code)
+        val result = authenticationRepository.confirmSignUp(user, code)
         if (result is Result.Success) {
             loading = false
             authenticationResult = AuthenticationResult(route = View.Home.route)
@@ -110,7 +118,7 @@ class AuthenticationViewModel(
         if (result is Result.Success) {
             loading = false
             authenticationResult = AuthenticationResult(
-                route = "${View.Confirm.route}/${user.email}"
+                route = "${View.Confirm.route}/${result.data.id}/${result.data.email}"
             )
             return
         }
