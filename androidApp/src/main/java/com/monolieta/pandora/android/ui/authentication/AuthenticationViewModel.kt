@@ -20,9 +20,6 @@ class AuthenticationViewModel(
     private val authenticationRepository: AuthenticationRepository
 ) : ViewModel() {
 
-    var recoverResult by mutableStateOf<AuthenticationResult?>(null)
-        private set
-
     var loading by mutableStateOf(false)
         private set
 
@@ -57,9 +54,7 @@ class AuthenticationViewModel(
     }
 
     suspend fun resendSignUpCode(username: String) {
-        Log.e("TAG", "resendSignUpCode: " + username)
         val result = authenticationRepository.resendSignUpCode(username)
-        Log.e("TAG", "resendSignUpCode: " + result)
     }
 
     suspend fun confirmSignUp(username: String, code: String) {
@@ -83,12 +78,24 @@ class AuthenticationViewModel(
         )
     }
 
-    suspend fun reset(username: String) {
-        val result = authenticationRepository.reset(username)
-        if (result is Result.Success) {
-            recoverResult = null
+    suspend fun resetPassword(username: String) {
+        if (loading) {
+            return
         }
-        recoverResult = AuthenticationResult(error = R.string.recover_failed)
+
+        loading = true
+        authenticationResult = null
+
+        val result = authenticationRepository.resetPassword(username)
+        if (result is Result.Success) {
+            loading = false
+            authenticationResult = null
+        }
+
+        loading = false
+        authenticationResult = AuthenticationResult(
+            error = getError(result, R.string.recover_failed)
+        )
     }
 
     suspend fun signUp(user: User) {

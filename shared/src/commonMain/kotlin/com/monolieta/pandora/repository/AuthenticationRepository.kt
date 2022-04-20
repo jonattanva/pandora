@@ -9,7 +9,7 @@ expect class AuthenticationRepository() {
         password: String
     ): Result<User>
 
-    suspend fun reset(username: String): Result<Boolean>
+    suspend fun resetPassword(username: String): Result<Boolean>
     suspend fun signUp(user: User): Result<User>
 
     suspend fun confirmSignUp(

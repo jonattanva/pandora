@@ -1,6 +1,5 @@
 package com.monolieta.pandora.repository
 
-import android.util.Log
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
@@ -91,7 +90,7 @@ actual class AuthenticationRepository actual constructor() {
         }
     }
 
-    actual suspend fun reset(username: String): Result<Boolean> {
+    actual suspend fun resetPassword(username: String): Result<Boolean> {
         try {
             if (username.isEmpty()) {
                 return Result.Error(AuthenticationException.InvalidEmailException)

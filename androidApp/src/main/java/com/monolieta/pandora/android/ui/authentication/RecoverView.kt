@@ -26,8 +26,10 @@ fun RecoverView(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val recoverResult = viewModel.recoverResult
     val focusManager = LocalFocusManager.current
+
+    val loading = viewModel.loading
+    val authenticationResult = viewModel.authenticationResult
 
     fun clickHandle(username: String) {
         /*scope.launch {

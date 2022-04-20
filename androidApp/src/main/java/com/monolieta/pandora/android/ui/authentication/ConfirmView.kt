@@ -10,14 +10,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.ui.component.Number
 import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.state.InputState
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -103,5 +106,29 @@ private fun FormView(
                 color = MaterialTheme.colors.primary
             )
         }
+    }
+}
+
+@Composable
+@Preview(name = "Dark Mode")
+fun ConfirmViewDarkMode() {
+    val navController = rememberNavController()
+    PandoraTheme(darkTheme = true) {
+        ConfirmView(
+            username = "Solid Snake",
+            navigation = navController
+        )
+    }
+}
+
+@Composable
+@Preview(name = "Light Mode")
+fun ConfirmViewLightMode() {
+    val navController = rememberNavController()
+    PandoraTheme(darkTheme = false) {
+        ConfirmView(
+            username = "Solid Snake",
+            navigation = navController
+        )
     }
 }
