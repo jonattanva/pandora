@@ -1,6 +1,5 @@
 package com.monolieta.pandora.android.ui.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,30 +17,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.monolieta.pandora.android.ui.state.InputState
-import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
-fun Email(
+fun Number(
     text: String,
     state: InputState,
     modifier: Modifier = Modifier,
     imeAction: ImeAction = ImeAction.Done,
     onDone: () -> Unit = {}
 ) {
-
     Column(modifier = Modifier.fillMaxWidth()) {
         OutlinedTextField(
             label = { Text(text) },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.Email,
-                    contentDescription = ""
-                )
-            },
             value = state.value,
             onValueChange = { state.value = it },
             modifier = modifier
@@ -59,7 +49,7 @@ fun Email(
             ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = imeAction,
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Number
             )
         )
 
@@ -71,22 +61,5 @@ fun Email(
                 modifier = Modifier.padding(start = 14.dp, top = 4.dp)
             )
         }
-    }
-
-}
-
-@Composable
-@Preview(name = "Dark Mode")
-fun EmailDarkMode() {
-    PandoraTheme(darkTheme = true) {
-        Email("Email", InputState())
-    }
-}
-
-@Composable
-@Preview(name = "Light Mode")
-fun EmailLightMode() {
-    PandoraTheme(darkTheme = false) {
-        Email("Email", InputState())
     }
 }

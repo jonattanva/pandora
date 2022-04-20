@@ -1,5 +1,6 @@
 package com.monolieta.pandora.android.ui.authentication
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -34,24 +35,31 @@ fun RegisterView(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val registerResult = viewModel.registerResult
+
+    val isLoading = viewModel.loading
+    val authenticationResult = viewModel.authenticationResult
 
     fun onClick(user: User) {
         scope.launch {
             viewModel.signUp(user)
         }
     }
-/*
-    if (registerResult?.error != null) {
-        Toast.makeText(context, registerResult.error, Toast.LENGTH_LONG)
-            .show()
-    }*/
 
+    authenticationResult?.error?.let {
+        viewModel.clear()
+        Toast.makeText(context, stringResource(it), Toast.LENGTH_LONG)
+            .show()
+    }
+
+    authenticationResult?.route?.let {
+        viewModel.clear()
+        navigation.navigate(it)
+    }
 
     FormView(
-        loading = false,
-        navigation = navigation,
-        onClick = ::onClick
+        loading = isLoading,
+        onClick = ::onClick,
+        navigation = navigation
     )
 }
 

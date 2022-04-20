@@ -1,5 +1,6 @@
 package com.monolieta.pandora.android.ui.authentication
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -22,6 +23,7 @@ import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.component.Password
 import com.monolieta.pandora.android.ui.state.InputState
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginView(
@@ -30,21 +32,29 @@ fun LoginView(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val loginResult = viewModel.loginResult
+
+    val loading = viewModel.loading
+    val authenticationResult = viewModel.authenticationResult
 
     fun clickHandle(username: String, password: String) {
-        /*scope.launch {
+        scope.launch {
             viewModel.signIn(username = username, password = password)
-        }*/
+        }
     }
-/*
-    if (loginResult?.error != null) {
-        Toast.makeText(context, loginResult.error, Toast.LENGTH_LONG)
+
+    authenticationResult?.error?.let {
+        viewModel.clear()
+        Toast.makeText(context, stringResource(it), Toast.LENGTH_LONG)
             .show()
-    }*/
+    }
+
+    authenticationResult?.route?.let {
+        viewModel.clear()
+        navigation.navigate(it)
+    }
 
     FormView(
-        loading = false,
+        loading = loading,
         onClick = ::clickHandle,
         navigation = navigation
     )

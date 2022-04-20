@@ -9,6 +9,7 @@
     <string name="sign_in_instead">"Sign in instead</string>
     <string name="sign_in">SIGN IN</string>
     <string name="next_action">NEXT</string>
+    <string name="verify_action">VERIFY</string>
     <string name="create_account_action">CREATE ACCOUNT</string>
     <string name="login_failed">"Login failed"</string>
     <string name="recover_failed">Please enter correct username</string>
@@ -17,4 +18,9 @@
     <string name="invalid_email">Invalid email</string>
     <string name="account_already_exists">An account with the given email already exists</string>
     <string name="sign_up_failed">Sign up failed</string>
+    <string name="confirm_sign_in_failed">Confirm sign in failed</string>
+    <string name="code">Code</string>
+    <string name="verification_code">Did\'t receive the verification code?</string>
+    <string name="resend_code">Resend code</string>
+    <string name="verification_title">Verification</string>
 </resources>

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 fun Form(loading: Boolean, Content: @Composable () -> Unit) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.TopCenter
     ) {
 
         Column(

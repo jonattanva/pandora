@@ -1,8 +1,10 @@
 package com.monolieta.pandora.repository
 
+import android.util.Log
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
+import com.amplifyframework.auth.result.step.AuthSignInStep.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD
 import com.amplifyframework.kotlin.core.Amplify
 import com.monolieta.pandora.extra.Result
 import com.monolieta.pandora.extra.isEmailValid
@@ -15,11 +17,11 @@ actual class AuthenticationRepository actual constructor() {
     actual suspend fun signIn(username: String, password: String): Result<User> {
         try {
             if (username.isEmpty()) {
-                throw IOException("The username is required")
+                return Result.Error(AuthenticationException.InvalidEmailException)
             }
 
             if (password.isEmpty()) {
-                throw IOException("The password is required")
+                return Result.Error(AuthenticationException.InvalidPasswordException)
             }
 
             val result = Amplify.Auth.signIn(username, password)
@@ -36,16 +38,63 @@ actual class AuthenticationRepository actual constructor() {
                 }
             }
 
+            if (result.nextStep.signInStep == CONFIRM_SIGN_IN_WITH_NEW_PASSWORD) {
+                return Result.Error(AuthenticationException.ConfirmSignInWithNewPassword)
+            }
+
             throw IOException("Sign in not complete")
         } catch (error: Exception) {
             return Result.Error(IOException("Error sign in", error))
         }
     }
 
+    actual suspend fun confirmSignUp(username: String, code: String): Result<User> {
+        try {
+            if (code.isEmpty()) {
+                return Result.Error(AuthenticationException.InvalidCodeException)
+            }
+
+            val result = Amplify.Auth.confirmSignUp(username, code)
+            if (result.isSignUpComplete) {
+                val current = Amplify.Auth.getCurrentUser()
+                if (current != null) {
+                    return Result.Success(
+                        User(
+                            id = current.userId,
+                            email = current.username,
+                            password = ""
+                        )
+                    )
+                }
+            }
+
+            throw IOException("Confirm sign up not complete")
+        } catch (error: Exception) {
+            return Result.Error(IOException("Failed to confirm sign up", error))
+        }
+    }
+
+    actual suspend fun resendSignUpCode(username: String): Result<Boolean> {
+        try {
+            if (username.isEmpty()) {
+                return Result.Error(AuthenticationException.InvalidEmailException)
+            }
+
+            val result = Amplify.Auth.resendSignUpCode(username)
+            if (result.isSignUpComplete) {
+                return Result.Success(true)
+            }
+
+            throw IOException("Resend sign up code not complete")
+        } catch (error: Exception) {
+            return Result.Error(IOException("Resend sign up code failed", error))
+        }
+    }
+
     actual suspend fun reset(username: String): Result<Boolean> {
         try {
             if (username.isEmpty()) {
-                throw IOException("The username is required")
+                return Result.Error(AuthenticationException.InvalidEmailException)
             }
 
             val result = Amplify.Auth.resetPassword(username)
