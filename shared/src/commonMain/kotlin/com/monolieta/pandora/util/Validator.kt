@@ -1,4 +1,4 @@
-package com.monolieta.pandora.extra
+package com.monolieta.pandora.util
 
 fun isCodeValid(code: String): Boolean = code.length == 6
 

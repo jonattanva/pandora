@@ -1,22 +1,24 @@
 package com.monolieta.pandora.android.ui.authentication
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.monolieta.pandora.repository.AuthenticationRepository
 import androidx.lifecycle.ViewModel
-import com.monolieta.pandora.extra.Result
+import com.monolieta.pandora.util.Result
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.android.View
+import com.monolieta.pandora.android.ui.Screen
 import com.monolieta.pandora.model.User
 import com.monolieta.pandora.repository.AuthenticationException
 import com.monolieta.pandora.repository.AuthenticationException.Companion.INVALID_EMAIL_EXCEPTION
 import com.monolieta.pandora.repository.AuthenticationException.Companion.INVALID_PASSWORD_EXCEPTION
 import com.monolieta.pandora.repository.AuthenticationException.Companion.USERNAME_EXISTS_EXCEPTION
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AuthenticationViewModel(
-    private val authenticationRepository: AuthenticationRepository
+@HiltViewModel
+class AuthenticationViewModel @Inject constructor(
+    private val repository: AuthenticationRepository
 ) : ViewModel() {
 
     var loading by mutableStateOf(false)
@@ -33,10 +35,10 @@ class AuthenticationViewModel(
         loading = true
         authenticationResult = null
 
-        val result = authenticationRepository.signIn(username, password)
+        val result = repository.signIn(username, password)
         if (result is Result.Success) {
             loading = false
-            authenticationResult = AuthenticationResult(route = View.Home.route)
+            authenticationResult = AuthenticationResult(route = Screen.Home.route)
             return
         }
 
@@ -44,7 +46,7 @@ class AuthenticationViewModel(
         val exception = getException(result)
         if (exception?.code == AuthenticationException.USER_NOT_CONFIRMED_EXCEPTION) {
             authenticationResult = AuthenticationResult(
-                route = "${View.Confirm.route}/ /${username}"
+                route = "${Screen.Confirm.route}/ /${username}"
             )
             return
         }
@@ -55,7 +57,7 @@ class AuthenticationViewModel(
     }
 
     suspend fun resendSignUpCode(username: String) {
-        val result = authenticationRepository.resendSignUpCode(username)
+        val result = repository.resendSignUpCode(username)
         if (result is Result.Success) {
 
         }
@@ -73,10 +75,10 @@ class AuthenticationViewModel(
         loading = true
         authenticationResult = null
 
-        val result = authenticationRepository.confirmSignUp(user, code)
+        val result = repository.confirmSignUp(user, code)
         if (result is Result.Success) {
             loading = false
-            authenticationResult = AuthenticationResult(route = View.Home.route)
+            authenticationResult = AuthenticationResult(route = Screen.Home.route)
             return
         }
 
@@ -94,7 +96,7 @@ class AuthenticationViewModel(
         loading = true
         authenticationResult = null
 
-        val result = authenticationRepository.resetPassword(username)
+        val result = repository.resetPassword(username)
         if (result is Result.Success) {
             loading = false
             authenticationResult = null
@@ -114,11 +116,11 @@ class AuthenticationViewModel(
         loading = true
         authenticationResult = null
 
-        val result = authenticationRepository.signUp(user)
+        val result = repository.signUp(user)
         if (result is Result.Success) {
             loading = false
             authenticationResult = AuthenticationResult(
-                route = "${View.Confirm.route}/${result.data.id}/${result.data.email}"
+                route = "${Screen.Confirm.route}/${result.data.id}/${result.data.email}"
             )
             return
         }

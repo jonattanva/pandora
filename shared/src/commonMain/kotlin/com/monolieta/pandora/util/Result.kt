@@ -1,4 +1,4 @@
-package com.monolieta.pandora.extra
+package com.monolieta.pandora.util
 
 sealed class Result<out T : Any> {
 

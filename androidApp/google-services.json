@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "18405702796",
+    "project_id": "pandora-90101",
+    "storage_bucket": "pandora-90101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18405702796:android:371f7fa8d7895685b68fa9",
+        "android_client_info": {
+          "package_name": "com.monolieta.pandora.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18405702796-mm9eitf69vbmqv937vjva1rfng26597u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQYeIF2EZNTw2BJuN0pA40Qms6YfRGHBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18405702796-mm9eitf69vbmqv937vjva1rfng26597u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

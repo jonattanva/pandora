@@ -1,4 +1,0 @@
-CREATE TABLE Game (
-    key TEXT NOT NULL PRIMARY KEY,
-    name TEXT NOT NULL
-);

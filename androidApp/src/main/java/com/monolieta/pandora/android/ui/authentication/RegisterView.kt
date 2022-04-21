@@ -20,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.android.View
+import com.monolieta.pandora.android.ui.Screen
 import com.monolieta.pandora.android.ui.component.*
 import com.monolieta.pandora.android.ui.state.ConfirmPasswordState
 import com.monolieta.pandora.android.ui.state.EmailState
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterView(
     navigation: NavHostController,
-    viewModel: AuthenticationViewModel = viewModel(factory = AuthenticationViewModelFactory())
+    viewModel: AuthenticationViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -135,7 +135,7 @@ private fun FormView(
                 modifier = Modifier
                     .padding(16.dp)
                     .clickable {
-                        navigation.navigate(View.Login.route)
+                        navigation.navigate(Screen.Login.route)
                     }
             )
         }

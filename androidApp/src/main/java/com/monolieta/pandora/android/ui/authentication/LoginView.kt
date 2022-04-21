@@ -18,7 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.android.View
+import com.monolieta.pandora.android.ui.Screen
 import com.monolieta.pandora.android.ui.component.Email
 import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.component.Password
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginView(
     navigation: NavHostController,
-    viewModel: AuthenticationViewModel = viewModel(factory = AuthenticationViewModelFactory())
+    viewModel: AuthenticationViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -95,7 +95,7 @@ private fun FormView(
         Text(
             stringResource(R.string.forgot_your_password),
             modifier = Modifier
-                .clickable { navigation.navigate(View.Recover.route) }
+                .clickable { navigation.navigate(Screen.Recover.route) }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -117,7 +117,7 @@ private fun FormView(
                 modifier = Modifier
                     .padding(16.dp)
                     .clickable {
-                        navigation.navigate(View.Account.route)
+                        navigation.navigate(Screen.Account.route)
                     }
             )
         }

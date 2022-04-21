@@ -1,7 +1,7 @@
 package com.monolieta.pandora.android.ui.state
 
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.extra.isCodeValid
+import com.monolieta.pandora.util.isCodeValid
 
 class CodeState : InputState(
     validator = ::isCodeValid,

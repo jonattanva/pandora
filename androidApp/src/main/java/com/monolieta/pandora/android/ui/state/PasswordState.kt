@@ -1,8 +1,8 @@
 package com.monolieta.pandora.android.ui.state
 
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.extra.isPasswordAndConfirmationValid
-import com.monolieta.pandora.extra.isPasswordValid
+import com.monolieta.pandora.util.isPasswordAndConfirmationValid
+import com.monolieta.pandora.util.isPasswordValid
 
 class PasswordState : InputState(
     validator = ::isPasswordValid,

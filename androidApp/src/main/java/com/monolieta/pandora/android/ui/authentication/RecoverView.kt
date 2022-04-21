@@ -22,7 +22,7 @@ import com.monolieta.pandora.android.ui.theme.PandoraTheme
 @Composable
 fun RecoverView(
     navigation: NavHostController,
-    viewModel: AuthenticationViewModel = viewModel(factory = AuthenticationViewModelFactory())
+    viewModel: AuthenticationViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()

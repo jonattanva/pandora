@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 fun VerificationView(
     user: User?,
     navigation: NavHostController,
-    viewModel: AuthenticationViewModel = viewModel(factory = AuthenticationViewModelFactory())
+    viewModel: AuthenticationViewModel = viewModel()
 ) {
     val scope = rememberCoroutineScope()
 

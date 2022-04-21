@@ -1,6 +1,11 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -25,6 +30,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation(project(":shared"))
     implementation("androidx.appcompat:appcompat:1.4.1")
@@ -39,11 +48,22 @@ dependencies {
     implementation("androidx.compose.animation:animation:1.1.1")
     implementation("androidx.navigation:navigation-compose:2.4.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
-
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
+    implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-perf-ktx")
+
+    implementation("com.google.dagger:hilt-android:2.41")
+    kapt("com.google.dagger:hilt-android-compiler:2.41")
+
+    implementation("io.coil-kt:coil:2.0.0-rc03")
+    implementation("io.coil-kt:coil-compose:2.0.0-rc03")
+
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
 }

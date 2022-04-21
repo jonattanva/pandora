@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.monolieta.pandora.android.View
+import com.monolieta.pandora.android.ui.Screen
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
@@ -20,7 +20,7 @@ fun Avatar(navigation: NavHostController, modifier: Modifier = Modifier) {
         imageVector = Icons.Filled.AccountCircle,
         contentDescription = "",
         modifier = modifier.size(32.dp).clickable {
-            navigation.navigate(View.Login.route)
+            navigation.navigate(Screen.Login.route)
         }
     )
 }
