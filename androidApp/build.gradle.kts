@@ -16,6 +16,7 @@ android {
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -63,7 +64,10 @@ dependencies {
     implementation("io.coil-kt:coil:2.0.0-rc03")
     implementation("io.coil-kt:coil-compose:2.0.0-rc03")
 
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:core:1.4.0")
     androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
+
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
 }

@@ -17,9 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.monolieta.pandora.android.ui.state.InputState
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
 fun Number(
@@ -62,5 +64,22 @@ fun Number(
                 modifier = Modifier.padding(start = 14.dp, top = 4.dp)
             )
         }
+    }
+}
+
+
+@Composable
+@Preview(name = "Dark Mode")
+fun NumberDarkMode() {
+    PandoraTheme(darkTheme = true) {
+        Number("Code", InputState())
+    }
+}
+
+@Composable
+@Preview(name = "Light Mode")
+fun NumberLightMode() {
+    PandoraTheme(darkTheme = false) {
+        Number("Code", InputState())
     }
 }

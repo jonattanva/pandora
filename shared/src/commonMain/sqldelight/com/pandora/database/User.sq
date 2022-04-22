@@ -1,6 +1,6 @@
 CREATE TABLE User (
-    id TEXT NOT NULL PRIMARY KEY,
-    email TEXT NOT NULL,
+    id TEXT,
+    email TEXT NOT NULL PRIMARY KEY,
     password TEXT NOT NULL,
     verified INTEGER AS Boolean DEFAULT 0
 );

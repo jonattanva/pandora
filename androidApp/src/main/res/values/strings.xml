@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pandora</string>
-    <string name="welcome">Welcome</string>
+    <string name="list">Lists</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
@@ -27,4 +27,5 @@
     <string name="verification_title">Verification</string>
     <string name="register_title">Create an account</string>
     <string name="sign_in_title">Sign in</string>
+    <string name="recover_title">Recover account</string>
 </resources>

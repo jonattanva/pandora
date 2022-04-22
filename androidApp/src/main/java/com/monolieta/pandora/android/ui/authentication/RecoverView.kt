@@ -5,11 +5,14 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -18,6 +21,7 @@ import com.monolieta.pandora.android.ui.component.Email
 import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.state.EmailState
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun RecoverView(
@@ -26,16 +30,16 @@ fun RecoverView(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val focusManager = LocalFocusManager.current
 
     val loading = viewModel.loading
     val authenticationResult = viewModel.authenticationResult
 
     fun clickHandle(username: String) {
-        /*scope.launch {
-            viewModel.reset(username = username)
-        }*/
+        scope.launch {
+            viewModel.resetPassword(username)
+        }
     }
+
 /*
     if (recoverResult?.error != null) {
         Toast.makeText(context, recoverResult.error, Toast.LENGTH_LONG)
@@ -43,7 +47,7 @@ fun RecoverView(
     }*/
 
     FormView(
-        loading = false,
+        loading = loading,
         onClick = ::clickHandle
     )
 }
@@ -54,18 +58,21 @@ private fun FormView(
     onClick: (String) -> Unit
 ) {
     val emailState = remember { EmailState() }
+    val emailFocusRequest = remember { FocusRequester() }
 
     fun onSubmit() {
         onClick(emailState.value)
     }
 
     Form(loading = loading) {
+        Text(stringResource(R.string.recover_title), fontSize = 30.sp)
 
         Spacer(modifier = Modifier.height(16.dp))
         Email(
             text = stringResource(R.string.email),
             state = emailState,
-            onDone = ::onSubmit
+            onDone = ::onSubmit,
+            modifier = Modifier.focusRequester(emailFocusRequest)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -73,7 +80,8 @@ private fun FormView(
             onClick = ::onSubmit,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(48.dp),
+            enabled = emailState.isValid
         ) {
             Text(text = stringResource(R.string.next_action))
         }

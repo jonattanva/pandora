@@ -75,7 +75,7 @@ class AuthenticationViewModel @Inject constructor(
         loading = true
         authenticationResult = null
 
-        val result = repository.confirmSignUp(user, code)
+        val result = repository.confirmSignUp(user.email, code)
         if (result is Result.Success) {
             loading = false
             authenticationResult = AuthenticationResult(route = Screen.Home.route)
@@ -100,6 +100,7 @@ class AuthenticationViewModel @Inject constructor(
         if (result is Result.Success) {
             loading = false
             authenticationResult = null
+            return
         }
 
         loading = false

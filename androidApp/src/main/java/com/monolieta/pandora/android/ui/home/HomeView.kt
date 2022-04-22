@@ -32,7 +32,7 @@ fun HomeView(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                stringResource(R.string.welcome),
+                stringResource(R.string.list),
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )

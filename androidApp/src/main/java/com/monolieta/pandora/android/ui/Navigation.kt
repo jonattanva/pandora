@@ -27,24 +27,34 @@ fun NavigationView(startDestination: String = Screen.Home.route) {
         }
 
         composable(route = Screen.Account.route) {
-            RegisterView(navigation = navController)
+            val authenticationViewModel = hiltViewModel<AuthenticationViewModel>()
+            RegisterView(
+                navigation = navController,
+                viewModel = authenticationViewModel
+            )
         }
 
         composable(route = "${Screen.Confirm.route}/{id}/{email}") { backStackEntry ->
+            val authenticationViewModel = hiltViewModel<AuthenticationViewModel>()
             val id = backStackEntry.arguments?.getString("id", "")
             val email = backStackEntry.arguments?.getString("email", "") ?: ""
 
             VerificationView(
                 navigation = navController,
                 user = User(
-                    id = id?.trim(),
+                    id = id,
                     email = email
-                )
+                ),
+                viewModel = authenticationViewModel
             )
         }
 
         composable(route = Screen.Recover.route) {
-            RecoverView(navigation = navController)
+            val authenticationViewModel = hiltViewModel<AuthenticationViewModel>()
+            RecoverView(
+                navigation = navController,
+                viewModel = authenticationViewModel
+            )
         }
     }
 }

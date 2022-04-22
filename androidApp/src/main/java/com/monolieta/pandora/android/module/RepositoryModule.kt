@@ -1,6 +1,7 @@
 package com.monolieta.pandora.android.module
 
 import com.monolieta.pandora.database.Database
+import com.monolieta.pandora.manager.PasswordManager
 import com.monolieta.pandora.repository.AuthenticationRepository
 import com.monolieta.pandora.repository.UserRepository
 import dagger.Module
@@ -15,7 +16,9 @@ object RepositoryModule {
     @Provides
     fun provideAuthenticationRepository(database: Database): AuthenticationRepository {
         return AuthenticationRepository(
-            repository = UserRepository(queries = database.userQueries)
+            repository = UserRepository(
+                queries = database.userQueries,
+            ), passwordManager = PasswordManager()
         )
     }
 }

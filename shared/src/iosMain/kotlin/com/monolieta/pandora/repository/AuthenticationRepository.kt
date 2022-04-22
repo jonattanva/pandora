@@ -1,10 +1,12 @@
 package com.monolieta.pandora.repository
 
+import com.monolieta.pandora.manager.PasswordManager
 import com.monolieta.pandora.util.Result
 import com.monolieta.pandora.model.User
 
 actual class AuthenticationRepository actual constructor(
-    private val repository: UserRepository
+    private val repository: UserRepository,
+    private val passwordManager: PasswordManager
 ) {
     actual suspend fun signIn(
         username: String,
@@ -22,7 +24,7 @@ actual class AuthenticationRepository actual constructor(
     }
 
     actual suspend fun confirmSignUp(
-        user: User,
+        username: String,
         code: String
     ): Result<User> {
         TODO("Not yet implemented")

@@ -75,7 +75,6 @@ private fun FormView(
     val codeState = remember { CodeState() }
     val codeFocusRequest = remember { FocusRequester() }
 
-    Log.e("TAG", "FormView: $codeState")
     fun onSubmit() {
         onClick(codeState.value)
     }
