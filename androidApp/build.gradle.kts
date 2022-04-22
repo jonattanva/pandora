@@ -65,6 +65,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.0.0-rc03")
 
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.test:core:1.4.0")
     androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")

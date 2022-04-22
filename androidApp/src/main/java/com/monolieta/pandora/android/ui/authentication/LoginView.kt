@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +19,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
+import com.monolieta.pandora.android.ui.CREATE_ACCOUNT_LINK_TAG
+import com.monolieta.pandora.android.ui.LOGIN_ACTION_TAG
 import com.monolieta.pandora.android.ui.Screen
 import com.monolieta.pandora.android.ui.component.Email
 import com.monolieta.pandora.android.ui.component.Form
@@ -104,6 +107,7 @@ private fun FormView(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
+                .testTag(LOGIN_ACTION_TAG)
         ) {
             Text(text = stringResource(R.string.sign_in))
         }
@@ -116,9 +120,8 @@ private fun FormView(
                 stringResource(R.string.create_account),
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable {
-                        navigation.navigate(Screen.Account.route)
-                    }
+                    .clickable { navigation.navigate(Screen.Account.route) }
+                    .testTag(CREATE_ACCOUNT_LINK_TAG)
             )
         }
     }

@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // Initialize
-        Amplify(this).init()
+        // Amplify(this).init()
 
         setContent {
             PandoraTheme {

@@ -7,10 +7,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.monolieta.pandora.android.ui.AVATAR_TAG
 import com.monolieta.pandora.android.ui.Screen
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
@@ -19,9 +21,10 @@ fun Avatar(navigation: NavHostController, modifier: Modifier = Modifier) {
     Icon(
         imageVector = Icons.Filled.AccountCircle,
         contentDescription = "",
-        modifier = modifier.size(32.dp).clickable {
-            navigation.navigate(Screen.Login.route)
-        }
+        modifier = modifier
+            .size(32.dp)
+            .clickable { navigation.navigate(Screen.Login.route) }
+            .testTag(AVATAR_TAG),
     )
 }
 
