@@ -11,15 +11,18 @@ import com.monolieta.pandora.Amplify
 import com.monolieta.pandora.android.ui.NavigationView
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var amplify: Amplify
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize
-        // Amplify(this).init()
+        MainAmplify.init(amplify)
 
         setContent {
             PandoraTheme {

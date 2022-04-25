@@ -56,6 +56,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")
 
     implementation("com.google.dagger:hilt-android:2.41")
@@ -65,12 +66,13 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.0.0-rc03")
 
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:core:1.4.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.test:core:1.4.0")
-    androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
+    androidTestImplementation("com.google.firebase:testlab-instr-lib:0.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
 
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
 }
