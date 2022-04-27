@@ -31,7 +31,7 @@ class UserRepository(
         .flatMapConcat { save(it, user) }
 
     private fun save(exists: Boolean, user: User): Flow<User> {
-        if (exists) {
+        if (!exists) {
             insert(user)
         } else update(user)
         return findByEmail(user.email)

@@ -21,10 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.android.ui.CONFIRM_INPUT_TAG
-import com.monolieta.pandora.android.ui.CREATE_ACCOUNT_ACTION_TAG
-import com.monolieta.pandora.android.ui.LOGIN_ACTION_TAG
-import com.monolieta.pandora.android.ui.Screen
+import com.monolieta.pandora.android.ui.*
 import com.monolieta.pandora.android.ui.component.*
 import com.monolieta.pandora.android.ui.state.ConfirmPasswordState
 import com.monolieta.pandora.android.ui.state.EmailState
@@ -108,7 +105,8 @@ private fun FormView(
             text = stringResource(R.string.password),
             state = passwordState,
             imeAction = ImeAction.Next,
-            onDone = { confirmationPasswordFocusRequest.requestFocus() }
+            onDone = { confirmationPasswordFocusRequest.requestFocus() },
+            testTag = PASSWORD_INPUT_TAG
         )
 
         Spacer(modifier = Modifier.height(16.dp))

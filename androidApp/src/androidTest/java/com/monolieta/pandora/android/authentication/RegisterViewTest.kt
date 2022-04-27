@@ -3,6 +3,8 @@ package com.monolieta.pandora.android.authentication
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.SmallTest
+import com.monolieta.pandora.android.R
 import com.monolieta.pandora.android.MainActivity
 import com.monolieta.pandora.android.ui.*
 import org.junit.Before
@@ -10,6 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@SmallTest
 @RunWith(AndroidJUnit4::class)
 class RegisterViewTest {
 
@@ -37,8 +40,9 @@ class RegisterViewTest {
         composeTestRule.onNodeWithTag(PASSWORD_INPUT_TAG)
             .performTextInput("1")
 
-        composeTestRule.onNodeWithText("Invalid email")
-            .assertIsDisplayed()
+        composeTestRule.onNodeWithText(
+            composeTestRule.activity.getString(R.string.invalid_email)
+        ).assertIsDisplayed()
 
         composeTestRule.onNodeWithTag(CREATE_ACCOUNT_ACTION_TAG)
             .assertIsNotEnabled()
@@ -61,8 +65,9 @@ class RegisterViewTest {
         composeTestRule.onNodeWithTag(CONFIRM_INPUT_TAG)
             .performTextInput("1")
 
-        composeTestRule.onNodeWithText("Use 8 characters or more for your password")
-            .assertIsDisplayed()
+        composeTestRule.onNodeWithText(
+            composeTestRule.activity.getString(R.string.invalid_password)
+        ).assertIsDisplayed()
 
         composeTestRule.onNodeWithTag(CREATE_ACCOUNT_ACTION_TAG)
             .assertIsNotEnabled()
@@ -88,10 +93,34 @@ class RegisterViewTest {
         composeTestRule.onNodeWithTag(EMAIL_INPUT_TAG)
             .performClick()
 
-        composeTestRule.onNodeWithText("Passwords don't match")
-            .assertIsDisplayed()
+        composeTestRule.onNodeWithText(
+            composeTestRule.activity.getString(R.string.passwords_do_not_match)
+        ).assertIsDisplayed()
 
         composeTestRule.onNodeWithTag(CREATE_ACCOUNT_ACTION_TAG)
             .assertIsNotEnabled()
+    }
+
+    @Test
+    fun testRegisterAccount() {
+        composeTestRule.onNodeWithTag(AVATAR_TAG)
+            .performClick()
+
+        composeTestRule.onNodeWithTag(EMAIL_INPUT_TAG)
+            .performTextInput("solid.snake@pandora.com")
+
+        composeTestRule.onNodeWithTag(PASSWORD_INPUT_TAG)
+            .performTextInput("123456789")
+
+        composeTestRule.onNodeWithTag(CONFIRM_INPUT_TAG)
+            .performTextInput("123456789")
+
+        composeTestRule.onNodeWithTag(CREATE_ACCOUNT_ACTION_TAG)
+            .performClick()
+
+        /*
+        composeTestRule.onNodeWithText(
+            composeTestRule.activity.getString(R.string.verification_title)
+        ).assertIsDisplayed()*/
     }
 }

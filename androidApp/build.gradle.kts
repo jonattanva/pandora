@@ -12,7 +12,7 @@ android {
     compileSdk = 32
     defaultConfig {
         applicationId = "com.monolieta.pandora.android"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
@@ -69,10 +69,10 @@ dependencies {
     androidTestImplementation("androidx.test:core:1.4.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     androidTestImplementation("com.google.firebase:testlab-instr-lib:0.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
-
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
 }

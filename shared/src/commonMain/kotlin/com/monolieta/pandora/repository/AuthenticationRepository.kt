@@ -1,12 +1,12 @@
 package com.monolieta.pandora.repository
 
+import com.monolieta.pandora.manager.KeyStoreManager
 import com.monolieta.pandora.util.Result
 import com.monolieta.pandora.model.User
-import com.monolieta.pandora.manager.PasswordManager
 
 expect class AuthenticationRepository(
     repository: UserRepository,
-    passwordManager: PasswordManager
+    keyStoreManager: KeyStoreManager
 ) {
     suspend fun signIn(
         username: String,

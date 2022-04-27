@@ -18,7 +18,7 @@ object RepositoryModule {
         return AuthenticationRepository(
             repository = UserRepository(
                 queries = database.userQueries,
-            ), passwordManager = PasswordManager()
+            ), keyStoreManager = PasswordManager()
         )
     }
 }
