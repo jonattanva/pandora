@@ -1,12 +1,10 @@
 package com.monolieta.pandora.android.ui.authentication
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -32,21 +30,21 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterView(
-    navigation: NavHostController,
-    viewModel: AuthenticationViewModel = viewModel()
+    navigation: NavHostController/*,
+    viewModel: AuthenticationViewModel = viewModel()*/
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-
+/*
     val isLoading = viewModel.loading
     val authenticationResult = viewModel.authenticationResult
-
+*/
     fun onClick(user: User) {
         scope.launch {
-            viewModel.signUp(user)
+  //          viewModel.signUp(user)
         }
     }
-
+/*
     authenticationResult?.error?.let {
         viewModel.clear()
         Toast.makeText(context, stringResource(it), Toast.LENGTH_LONG)
@@ -57,18 +55,16 @@ fun RegisterView(
         viewModel.clear()
         navigation.navigate(it)
     }
-
+*/
     FormView(
-        loading = isLoading,
-        onClick = ::onClick,
-        navigation = navigation
+        loading = false,
+        onClick = ::onClick
     )
 }
 
 @Composable
 private fun FormView(
     loading: Boolean,
-    navigation: NavHostController,
     onClick: (User) -> Unit
 ) {
     val passwordFocusRequest = remember { FocusRequester() }
@@ -90,9 +86,17 @@ private fun FormView(
     }
 
     Form(loading = loading) {
-        Text(stringResource(R.string.register_title), fontSize = 30.sp)
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(64.dp))
+        Back()
+
+        Spacer(modifier = Modifier.height(64.dp))
+        Text(
+            stringResource(R.string.create_new_account),
+            fontSize = 34.sp,
+        )
+
+        Spacer(modifier = Modifier.height(64.dp))
         Email(
             text = stringResource(R.string.email),
             state = emailState,
@@ -118,7 +122,7 @@ private fun FormView(
             testTag = CONFIRM_INPUT_TAG
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(48.dp))
         Button(
             onClick = ::onSubmit,
             modifier = Modifier
@@ -127,21 +131,7 @@ private fun FormView(
                 .testTag(CREATE_ACCOUNT_ACTION_TAG),
             enabled = emailState.isValid && passwordState.isValid && confirmPasswordState.isValid
         ) {
-            Text(text = stringResource(R.string.create_account_action))
-        }
-
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter,
-        ) {
-            Text(
-                stringResource(R.string.sign_in_instead),
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable {
-                        navigation.navigate(Screen.Login.route)
-                    }
-            )
+            Text(text = stringResource(R.string.sign_up))
         }
     }
 }

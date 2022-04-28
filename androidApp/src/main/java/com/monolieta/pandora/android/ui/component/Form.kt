@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
 fun Form(loading: Boolean, Content: @Composable () -> Unit) {
@@ -21,7 +24,6 @@ fun Form(loading: Boolean, Content: @Composable () -> Unit) {
     ) {
 
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(16.dp)
         ) {
             Content()
@@ -37,6 +39,27 @@ fun Form(loading: Boolean, Content: @Composable () -> Unit) {
             ) {
                 CircularProgressIndicator()
             }
+        }
+    }
+}
+
+
+@Composable
+@Preview(name = "Dark Mode")
+fun FormDarkMode() {
+    PandoraTheme(darkTheme = true) {
+        Form(false) {
+            Text(text = "Hello Android")
+        }
+    }
+}
+
+@Composable
+@Preview(name = "Light Mode")
+fun FormLightMode() {
+    PandoraTheme(darkTheme = false) {
+        Form(false) {
+            Text(text = "Hello Android")
         }
     }
 }

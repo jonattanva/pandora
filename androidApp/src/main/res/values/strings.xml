@@ -1,14 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">Pandora</string>
     <string name="list">Lists</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm password</string>
     <string name="recover">Recover</string>
     <string name="create_account">Create account</string>
     <string name="forgot_your_password">Forgot your password?</string>
-    <string name="sign_in_instead">"Sign in instead</string>
-    <string name="sign_in">SIGN IN</string>
+    <string name="sign_in">Sign in</string>
     <string name="next_action">NEXT</string>
     <string name="verify_action">VERIFY</string>
     <string name="create_account_action">CREATE ACCOUNT</string>
@@ -24,8 +20,13 @@
     <string name="verification_code">Didn\'t receive the verification code?</string>
     <string name="resend_code">Resend code</string>
     <string name="verification_title">Verification</string>
-    <string name="register_title">Create an account</string>
     <string name="sign_in_title">Sign in</string>
     <string name="recover_title">Recover account</string>
     <string name="account_already_exists">This user account already exists</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="sign_up">Sign up</string>
 </resources>

@@ -29,8 +29,8 @@ fun NavigationView(startDestination: String = Screen.Home.route) {
         composable(route = Screen.Account.route) {
             val authenticationViewModel = hiltViewModel<AuthenticationViewModel>()
             RegisterView(
-                navigation = navController,
-                viewModel = authenticationViewModel
+                navigation = navController/*,
+                viewModel = authenticationViewModel*/
             )
         }
 

@@ -43,7 +43,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 
     implementation("androidx.palette:palette:1.0.0")
-    implementation("androidx.compose.ui:ui-tooling:1.1.1")
     implementation("androidx.compose.material:material:1.1.1")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.compose.animation:animation:1.1.1")
@@ -52,6 +51,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    implementation("androidx.compose.ui:ui-tooling-preview:1.1.1")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.1.1")
 
     implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
     implementation("com.google.firebase:firebase-crashlytics-ktx")

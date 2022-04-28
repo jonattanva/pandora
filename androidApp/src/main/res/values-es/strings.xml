@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="list">Listas</string>
-    <string name="password">Contraseña</string>
-    <string name="confirm_password">Confirmar contraseña</string>
-    <string name="email">Correo electrónico</string>
     <string name="code">Código</string>
     <string name="invalid_code">Código inválido</string>
     <string name="invalid_email">Correo electrónico inválido</string>
@@ -12,20 +9,24 @@
     <string name="next_action">SIGUIENTE</string>
     <string name="recover">Recuperar</string>
     <string name="create_account">Crear cuenta</string>
-    <string name="create_account_action">CREAR CUENTA</string>
     <string name="sign_in_title">Iniciar sesión</string>
-    <string name="sign_in">INICIAR SESIÓN</string>
+    <string name="sign_in">Iniciar sesión</string>
     <string name="verify_action">VERIFICAR</string>
-    <string name="register_title">Crea una cuenta</string>
     <string name="verification_code">¿No recibiste el código de verificación?</string>
     <string name="verification_title">Verificación</string>
     <string name="recover_title">Recuperar cuenta</string>
     <string name="account_already_exists">Esta cuenta de usuario ya existe</string>
     <string name="passwords_do_not_match">Las contraseñas no coinciden</string>
-    <string name="sign_in_instead">"Accede a tu cuenta "</string>
     <string name="recover_failed">Por favor ingrese el nombre de usuario correcto</string>
     <string name="invalid_password">Use 8 caracteres o más para su contraseña</string>
     <string name="confirm_sign_in_failed">No fue posible confirmar su cuenta</string>
     <string name="sign_up_failed">Registro fallido</string>
     <string name="login_failed">No fue posible iniciar sesión</string>
+    <string name="create_account_action">CREAR CUENTA</string>
+
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="email">Correo electrónico</string>
+    <string name="create_new_account">Crear nueva cuenta</string>
+    <string name="sign_up">Regístrate</string>
 </resources>
