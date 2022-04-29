@@ -1,6 +1,6 @@
 package com.monolieta.pandora.android.ui.authentication
 
-import android.util.Log
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -20,9 +20,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.monolieta.pandora.android.R
+import com.monolieta.pandora.android.ui.component.Back
+import com.monolieta.pandora.android.ui.component.Code
 import com.monolieta.pandora.android.ui.component.Number
 import com.monolieta.pandora.android.ui.component.Form
 import com.monolieta.pandora.android.ui.state.CodeState
+import com.monolieta.pandora.android.ui.state.InputState
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
 import com.monolieta.pandora.model.User
 import kotlinx.coroutines.launch
@@ -59,18 +62,20 @@ fun VerificationView(
         navigation.navigate(it)
     }
 
-    FormView(
+    VerificationFormView(
         loading = loading,
+        navigation = navigation,
         onClick = ::clickHandle,
         onResendCode = ::resendCodeHandle
     )
 }
 
 @Composable
-private fun FormView(
+private fun VerificationFormView(
     loading: Boolean,
-    onClick: (String) -> Unit,
-    onResendCode: () -> Unit
+    navigation: NavHostController,
+    onClick: (String) -> Unit = {},
+    onResendCode: () -> Unit = {}
 ) {
     val codeState = remember { CodeState() }
     val codeFocusRequest = remember { FocusRequester() }
@@ -80,17 +85,22 @@ private fun FormView(
     }
 
     Form(loading = loading) {
-        Text(stringResource(R.string.verification_title), fontSize = 30.sp)
+        Back(navigation = navigation)
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Number(
+        Spacer(modifier = Modifier.height(64.dp))
+        Text(stringResource(R.string.verification), fontSize = 30.sp)
+        Text(stringResource(R.string.verification_help))
+
+        Spacer(modifier = Modifier.height(32.dp))
+        /*Number(
             text = stringResource(R.string.code),
             state = codeState,
             onDone = ::onSubmit,
             modifier = Modifier.focusRequester(codeFocusRequest)
-        )
+        )*/
+        Code(codeState)
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(48.dp))
         Button(
             onClick = ::onSubmit,
             modifier = Modifier
@@ -98,48 +108,46 @@ private fun FormView(
                 .height(48.dp),
             enabled = codeState.isValid
         ) {
-            Text(text = stringResource(R.string.verify_action))
+            Text(text = stringResource(R.string.verify))
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Row {
-            Text(stringResource(R.string.verification_code))
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                stringResource(R.string.resend_code),
-                modifier = Modifier
-                    .clickable { onResendCode() },
-                color = MaterialTheme.colors.primary
-            )
-        }
+        Spacer(modifier = Modifier.height(48.dp))
+        Text(stringResource(R.string.verification_code))
+        Text(
+            stringResource(R.string.resend_code),
+            modifier = Modifier
+                .clickable { onResendCode() },
+            color = MaterialTheme.colors.primary
+        )
     }
 }
 
 @Composable
-@Preview(name = "Dark Mode")
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
 fun ConfirmViewDarkMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = true) {
-        VerificationView(
-            user = User(
-                id = "1",
-                email = "solid.snake@monolieta.com"
-            ),
+        VerificationFormView(
+            loading = false,
             navigation = navController
         )
     }
 }
 
 @Composable
-@Preview(name = "Light Mode")
+@Preview(
+    name = "Light Mode",
+    showBackground = true
+)
 fun ConfirmViewLightMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = false) {
-        VerificationView(
-            user = User(
-                id = "1",
-                email = "solid.snake@monolieta.com"
-            ),
+        VerificationFormView(
+            loading = false,
             navigation = navController
         )
     }

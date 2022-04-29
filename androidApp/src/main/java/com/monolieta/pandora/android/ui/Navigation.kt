@@ -29,12 +29,12 @@ fun NavigationView(startDestination: String = Screen.Home.route) {
         composable(route = Screen.Account.route) {
             val authenticationViewModel = hiltViewModel<AuthenticationViewModel>()
             RegisterView(
-                navigation = navController/*,
-                viewModel = authenticationViewModel*/
+                navigation = navController,
+                viewModel = authenticationViewModel
             )
         }
 
-        composable(route = "${Screen.Confirm.route}/{id}/{email}") { backStackEntry ->
+        composable(route = "${Screen.Verification.route}/{id}/{email}") { backStackEntry ->
             val authenticationViewModel = hiltViewModel<AuthenticationViewModel>()
             val id = backStackEntry.arguments?.getString("id", "")
             val email = backStackEntry.arguments?.getString("email", "") ?: ""

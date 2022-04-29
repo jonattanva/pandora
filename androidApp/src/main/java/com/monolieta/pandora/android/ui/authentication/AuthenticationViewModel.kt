@@ -46,7 +46,7 @@ class AuthenticationViewModel @Inject constructor(
         val exception = getException(result)
         if (exception?.code == AuthenticationException.USER_NOT_CONFIRMED_EXCEPTION) {
             authenticationResult = AuthenticationResult(
-                route = "${Screen.Confirm.route}/ /${username}"
+                route = "${Screen.Verification.route}/ /${username}"
             )
             return
         }
@@ -121,7 +121,7 @@ class AuthenticationViewModel @Inject constructor(
         if (result is Result.Success) {
             loading = false
             authenticationResult = AuthenticationResult(
-                route = "${Screen.Confirm.route}/${result.data.id}/${result.data.email}"
+                route = "${Screen.Verification.route}/${result.data.id}/${result.data.email}"
             )
             return
         }

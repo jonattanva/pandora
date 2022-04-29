@@ -30,21 +30,21 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterView(
-    navigation: NavHostController/*,
-    viewModel: AuthenticationViewModel = viewModel()*/
+    navigation: NavHostController,
+    viewModel: AuthenticationViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-/*
+
     val isLoading = viewModel.loading
     val authenticationResult = viewModel.authenticationResult
-*/
+
     fun onClick(user: User) {
         scope.launch {
-  //          viewModel.signUp(user)
+            viewModel.signUp(user)
         }
     }
-/*
+
     authenticationResult?.error?.let {
         viewModel.clear()
         Toast.makeText(context, stringResource(it), Toast.LENGTH_LONG)
@@ -55,17 +55,19 @@ fun RegisterView(
         viewModel.clear()
         navigation.navigate(it)
     }
-*/
-    FormView(
-        loading = false,
+
+    RegisterFormView(
+        loading = isLoading,
+        navigation = navigation,
         onClick = ::onClick
     )
 }
 
 @Composable
-private fun FormView(
+private fun RegisterFormView(
     loading: Boolean,
-    onClick: (User) -> Unit
+    navigation: NavHostController,
+    onClick: (User) -> Unit = {}
 ) {
     val passwordFocusRequest = remember { FocusRequester() }
     val confirmationPasswordFocusRequest = remember { FocusRequester() }
@@ -86,17 +88,15 @@ private fun FormView(
     }
 
     Form(loading = loading) {
-
-        Spacer(modifier = Modifier.height(64.dp))
-        Back()
+        Back(navigation = navigation)
 
         Spacer(modifier = Modifier.height(64.dp))
         Text(
-            stringResource(R.string.create_new_account),
+            stringResource(R.string.create_account),
             fontSize = 34.sp,
         )
 
-        Spacer(modifier = Modifier.height(64.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         Email(
             text = stringResource(R.string.email),
             state = emailState,
@@ -137,19 +137,31 @@ private fun FormView(
 }
 
 @Composable
-@Preview(name = "Dark Mode")
+@Preview(
+    name = "Dark Mode",
+    showBackground = true
+)
 fun AccountViewDarkMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = true) {
-        RegisterView(navigation = navController)
+        RegisterFormView(
+            loading = false,
+            navigation = navController
+        )
     }
 }
 
 @Composable
-@Preview(name = "Light Mode")
+@Preview(
+    name = "Light Mode",
+    showBackground = true
+)
 fun AccountViewLightMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = false) {
-        RegisterView(navigation = navController)
+        RegisterFormView(
+            loading = false,
+            navigation = navController
+        )
     }
 }

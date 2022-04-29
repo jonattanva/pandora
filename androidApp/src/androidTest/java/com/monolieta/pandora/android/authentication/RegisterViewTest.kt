@@ -102,25 +102,19 @@ class RegisterViewTest {
     }
 
     @Test
-    fun testRegisterAccount() {
+    fun testBackButton() {
         composeTestRule.onNodeWithTag(AVATAR_TAG)
             .performClick()
 
-        composeTestRule.onNodeWithTag(EMAIL_INPUT_TAG)
-            .performTextInput("solid.snake@pandora.com")
+        composeTestRule.onNodeWithText(
+            composeTestRule.activity.getString(R.string.create_account)
+        ).assertIsDisplayed()
 
-        composeTestRule.onNodeWithTag(PASSWORD_INPUT_TAG)
-            .performTextInput("123456789")
-
-        composeTestRule.onNodeWithTag(CONFIRM_INPUT_TAG)
-            .performTextInput("123456789")
-
-        composeTestRule.onNodeWithTag(CREATE_ACCOUNT_ACTION_TAG)
+        composeTestRule.onNodeWithTag(BACK_TAG)
             .performClick()
 
-        /*
         composeTestRule.onNodeWithText(
-            composeTestRule.activity.getString(R.string.verification_title)
-        ).assertIsDisplayed()*/
+            composeTestRule.activity.getString(R.string.create_account)
+        ).assertIsNotDisplayed()
     }
 }

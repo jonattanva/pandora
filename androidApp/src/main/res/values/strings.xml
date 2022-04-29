@@ -2,24 +2,17 @@
     <string name="app_name" translatable="false">Pandora</string>
     <string name="list">Lists</string>
     <string name="recover">Recover</string>
-    <string name="create_account">Create account</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="sign_in">Sign in</string>
     <string name="next_action">NEXT</string>
-    <string name="verify_action">VERIFY</string>
+
     <string name="create_account_action">CREATE ACCOUNT</string>
     <string name="login_failed">Login failed</string>
     <string name="recover_failed">Please enter correct username</string>
-    <string name="invalid_password">Use 8 characters or more for your password</string>
-    <string name="passwords_do_not_match">Passwords don\'t match</string>
     <string name="invalid_code">Invalid code</string>
-    <string name="invalid_email">Invalid email</string>
     <string name="sign_up_failed">Sign up failed</string>
     <string name="confirm_sign_in_failed">Couldn\'t confirm your account</string>
     <string name="code">Code</string>
-    <string name="verification_code">Didn\'t receive the verification code?</string>
-    <string name="resend_code">Resend code</string>
-    <string name="verification_title">Verification</string>
     <string name="sign_in_title">Sign in</string>
     <string name="recover_title">Recover account</string>
     <string name="account_already_exists">This user account already exists</string>
@@ -27,6 +20,15 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="create_new_account">Create new account</string>
+    <string name="create_account">Create account</string>
     <string name="sign_up">Sign up</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_password">Use 8 characters or more for your password</string>
+    <string name="passwords_do_not_match">Passwords don\'t match</string>
+
+    <string name="verification">Verification</string>
+    <string name="verify">Verify</string>
+    <string name="verification_help">Please enter the verification code we sent to you email address</string>
+    <string name="verification_code">Didn\'t receive the verification code?</string>
+    <string name="resend_code">Resend code</string>
 </resources>

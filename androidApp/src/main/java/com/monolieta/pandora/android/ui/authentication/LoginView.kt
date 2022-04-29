@@ -120,7 +120,7 @@ private fun FormView(
                 stringResource(R.string.create_account),
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable { navigation.navigate(Screen.Account.route) }
+                    .clickable { navigation.navigate(Screen.Verification.route + "/1/jonattan") }
                     .testTag(CREATE_ACCOUNT_LINK_TAG)
             )
         }

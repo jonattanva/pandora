@@ -16,13 +16,16 @@ import com.monolieta.pandora.android.ui.BACK_TAG
 import com.monolieta.pandora.android.ui.theme.PandoraTheme
 
 @Composable
-fun Back(modifier: Modifier = Modifier) {
+fun Back(
+    navigation: NavHostController,
+    modifier: Modifier = Modifier
+) {
     Icon(
         imageVector = Icons.Filled.ArrowBack,
         contentDescription = "",
         modifier = modifier
             .size(32.dp)
-            .clickable { }
+            .clickable { navigation.popBackStack() }
             .testTag(BACK_TAG),
     )
 }
@@ -32,7 +35,7 @@ fun Back(modifier: Modifier = Modifier) {
 fun BackDarkMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = true) {
-        Back()
+        Back(navigation = navController)
     }
 }
 
@@ -41,6 +44,6 @@ fun BackDarkMode() {
 fun BackLightMode() {
     val navController = rememberNavController()
     PandoraTheme(darkTheme = false) {
-        Back()
+        Back(navigation = navController)
     }
 }

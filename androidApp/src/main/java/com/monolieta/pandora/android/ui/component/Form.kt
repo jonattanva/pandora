@@ -24,6 +24,7 @@ fun Form(loading: Boolean, Content: @Composable () -> Unit) {
     ) {
 
         Column(
+            horizontalAlignment = Alignment.Start,
             modifier = Modifier.padding(16.dp)
         ) {
             Content()
