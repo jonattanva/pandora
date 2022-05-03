@@ -1,0 +1,31 @@
+import kotlin.collections.List;
+
+CREATE TABLE Game (
+    key TEXT NOT NULL PRIMARY KEY,
+    cover TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    lastUpdate INTEGER,
+    developer TEXT NOT NULL,
+    screenshots TEXT AS List<String> NOT NULL
+);
+
+findAll:
+SELECT * FROM Game;
+
+findById:
+SELECT * FROM Game WHERE key = ?;
+
+insert:
+INSERT INTO Game(key, cover, name, description, lastUpdate, screenshots, developer)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+update:
+UPDATE Game SET cover = ?,  name = ?, description = ?,  lastUpdate = ?, screenshots = ?, developer = ?
+WHERE key = ?;
+
+exists:
+SELECT EXISTS (SELECT key FROM Game WHERE key = ?);
+
+hasGame:
+SELECT EXISTS (SELECT key FROM Game WHERE key = ? AND lastUpdate >= ?);

@@ -3,6 +3,8 @@ package com.monolieta.pandora.android.module
 import android.content.Context
 import com.monolieta.pandora.DriverFactory
 import com.monolieta.pandora.database.Database
+import com.monolieta.pandora.listOfStringAdapter
+import com.pandora.database.Game
 import com.squareup.sqldelight.db.SqlDriver
 import dagger.Module
 import dagger.Provides
@@ -22,6 +24,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabase(driver: SqlDriver) = Database(
-        driver = driver
+        driver = driver, Game.Adapter(
+            screenshotsAdapter = listOfStringAdapter
+        )
     )
 }

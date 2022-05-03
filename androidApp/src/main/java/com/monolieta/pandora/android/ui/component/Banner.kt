@@ -1,6 +1,5 @@
-package com.monolieta.pandora.android.ui.home
+package com.monolieta.pandora.android.ui.component
 
-import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,16 +15,24 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.palette.graphics.Palette
+import androidx.compose.ui.unit.sp
+import com.monolieta.pandora.android.ui.theme.PandoraTheme
+import com.monolieta.pandora.android.ui.theme.getVibrantColor
+import com.pandora.database.Game
 import com.monolieta.pandora.android.R
-import com.monolieta.pandora.android.ui.component.Cover
 
 @Composable
-fun DetailView() {
+fun Banner(game: Game) {
+    Banner(
+        banner = game.screenshots.random(),
+        cover = game.cover,
+        name = game.name,
+        developer = game.developer
+    )
 }
 
 @Composable
-private fun Banner(@DrawableRes banner: Int, @DrawableRes cover: Int, title: String, subtitle: String) {
+fun Banner(@DrawableRes banner: Int, @DrawableRes cover: Int, name: String, developer: String) {
     val color = getVibrantColor(
         bitmap = ImageBitmap.imageResource(banner)
             .asAndroidBitmap()
@@ -39,14 +46,14 @@ private fun Banner(@DrawableRes banner: Int, @DrawableRes cover: Int, title: Str
 
         Information(
             cover = cover,
-            title = title,
-            subtitle = subtitle
+            name = name,
+            developer = developer
         )
     }
 }
 
 @Composable
-private fun Banner(banner: String, cover: String, title: String, subtitle: String) {
+fun Banner(banner: String, cover: String, name: String, developer: String) {
     val modifier = Modifier
     Banner(modifier) {
         Cover(
@@ -63,9 +70,9 @@ private fun Banner(banner: String, cover: String, title: String, subtitle: Strin
         )
 
         Information(
-            url = cover,
-            title = title,
-            subtitle = subtitle
+            cover = cover,
+            name = name,
+            developer = developer
         )
     }
 }
@@ -73,15 +80,15 @@ private fun Banner(banner: String, cover: String, title: String, subtitle: Strin
 @Composable
 private fun Banner(color: Color, content: @Composable () -> Unit) {
     Banner(
-        modifier = Modifier
-            .background(
-                Brush.verticalGradient(
-                    listOf(color, Color.Black)
+        modifier = Modifier.background(
+            Brush.verticalGradient(
+                listOf(
+                    color,
+                    Color.Black
                 )
             )
-    ) {
-        content()
-    }
+        )
+    ) { content() }
 }
 
 @Composable
@@ -92,8 +99,8 @@ private fun Banner(modifier: Modifier, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun Information(@DrawableRes cover: Int, title: String, subtitle: String) {
-    Information(title, subtitle) {
+private fun Information(@DrawableRes cover: Int, name: String, developer: String) {
+    Information(name, developer) {
         Cover(
             painter = painterResource(cover),
             modifier = Modifier.size(128.dp)
@@ -102,38 +109,36 @@ private fun Information(@DrawableRes cover: Int, title: String, subtitle: String
 }
 
 @Composable
-private fun Information(url: String, title: String, subtitle: String) {
-    Information(title, subtitle) {
+private fun Information(cover: String, name: String, developer: String) {
+    Information(name, developer) {
         Cover(
-            url,
+            cover,
             modifier = Modifier.size(128.dp)
         )
     }
 }
 
 @Composable
-private fun Information(title: String, subtitle: String, content: @Composable () -> Unit) {
+private fun Information(name: String, developer: String, content: @Composable () -> Unit) {
     Row(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(16.dp)
             .background(Color.Transparent)
             .fillMaxWidth()
     ) {
         content()
 
         Spacer(modifier = Modifier.width(8.dp))
-
         Column {
             Text(
-                text = title,
-                color = Color.White,
-                style = MaterialTheme.typography.subtitle1
+                text = name,
+                fontSize = 22.sp,
+                color = Color.White
             )
 
             Spacer(modifier = Modifier.height(4.dp))
-
             Text(
-                text = subtitle,
+                text = developer,
                 color = Color.White,
                 style = MaterialTheme.typography.subtitle2
             )
@@ -141,25 +146,35 @@ private fun Information(title: String, subtitle: String, content: @Composable ()
     }
 }
 
-private fun getVibrantColor(bitmap: Bitmap): Color {
-    val palette = Palette.from(bitmap)
-        .generate()
 
-    return palette.vibrantSwatch?.rgb?.let {
-        Color(it)
-    } ?: Color.Transparent
+@Composable
+@Preview(
+    name = "Dark Mode",
+    showBackground = true
+)
+private fun BannerDarkMode() {
+    PandoraTheme(darkTheme = true) {
+        Banner(
+            banner = R.drawable.psychonauts_banner_1,
+            cover = R.drawable.psychonauts,
+            name = "Psychonauts 2",
+            developer = "Double Fine Productions",
+        )
+    }
 }
 
+@Composable
 @Preview(
     name = "Light Mode",
     showBackground = true
 )
-@Composable
-private fun Preview() {
-    Banner(
-        cover = R.drawable.psychonauts,
-        banner = R.drawable.psychonauts_banner_1,
-        title = "Psychonauts 2",
-        subtitle = "Double Fine Productions",
-    )
+private fun BannerLightMode() {
+    PandoraTheme(darkTheme = false) {
+        Banner(
+            banner = R.drawable.the_legend_of_zelda_breath_of_the_wild_banner,
+            cover = R.drawable.the_legend_of_zelda_breath_of_the_wild,
+            name = "The legend of zelda breath of the wild",
+            developer = "Nintendo",
+        )
+    }
 }
