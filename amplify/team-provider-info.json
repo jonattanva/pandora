@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pandora-dev-175324-authRole",
+      "UnauthRoleArn": "arn:aws:iam::822772932110:role/amplify-pandora-dev-175324-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::822772932110:role/amplify-pandora-dev-175324-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pandora-dev-175324-deployment",
+      "UnauthRoleName": "amplify-pandora-dev-175324-unauthRole",
+      "StackName": "amplify-pandora-dev-175324",
+      "StackId": "arn:aws:cloudformation:us-east-1:822772932110:stack/amplify-pandora-dev-175324/07289b10-bdd8-11ec-8452-0a4a657cbf05",
+      "AmplifyAppId": "d2mnd0dooai9tc"
+    },
+    "categories": {
+      "auth": {
+        "pandoracb11db4a": {}
+      }
+    }
+  }
+}

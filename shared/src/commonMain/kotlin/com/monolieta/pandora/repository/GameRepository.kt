@@ -1,18 +1,21 @@
 package com.monolieta.pandora.repository
 
-import com.monolieta.pandora.database.Game
-import com.monolieta.pandora.database.GameQueries
 import com.monolieta.pandora.dayToMillis
-import com.monolieta.pandora.domain.http.HttpDetail
+import com.monolieta.pandora.model.http.HttpDetail
+import com.pandora.database.Game
+import com.pandora.database.GameQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.util.date.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class GameRepository(
     private val url: String,
-    private val repository: GameQueries
+    private val queries: GameQueries
 ) : Repository() {
 
     fun findByKey(key: String): Flow<Game> {
@@ -20,25 +23,27 @@ class GameRepository(
         return getByKey(key)
     }
 
-    private fun getByKey(key: String): Flow<Game> = repository.findById(key)
-        .asFlow()
-        .mapToOne()
-
-    private fun exists(key: String) = repository.exists(key)
-        .asFlow()
-        .mapToOne()
-
-    private fun hasGame(key: String) = repository.hasGame(key, FRESH_TIMEOUT)
-        .executeAsOne()
-
     private fun fetchByKey(key: String): Flow<Game> = flow {
         if (!hasGame(key)) {
-            val response: HttpDetail<Game> = client.get("$url/pandora/games/$key")
-            repository.transaction {
-                save(game = response.body)
+            val response: HttpDetail<Game> = client.get("$url/pandora/game/$key")
+                .body()
+
+            queries.transaction {
+                save(response.body)
             }
         }
     }
+
+    private fun getByKey(key: String): Flow<Game> = queries.findById(key)
+        .asFlow()
+        .mapToOne()
+
+    private fun hasGame(key: String) = queries.hasGame(key, FRESH_TIMEOUT)
+        .executeAsOne()
+
+    private fun exists(key: String) = queries.exists(key)
+        .asFlow()
+        .mapToOne()
 
     private fun save(game: Game): Flow<Unit> {
         return exists(game.key).map { exists ->
@@ -49,32 +54,25 @@ class GameRepository(
     }
 
     private fun insert(game: Game) {
-        repository.insert(
+        queries.insert(
             key = game.key,
             cover = game.cover,
-            release = game.release,
-            lastUpdate = getTimeMillis(),
-            developer = game.developer,
             name = game.name,
             description = game.description,
-            platforms = game.platforms,
-            genre = game.genre,
-            screenshots = game.screenshots
-
+            lastUpdate = getTimeMillis(),
+            screenshots = game.screenshots,
+            developer = game.developer
         )
     }
 
     private fun update(game: Game) {
-        repository.update(
-            release = game.release,
-            lastUpdate = getTimeMillis(),
-            developer = game.developer,
+        queries.update(
             cover = game.cover,
             name = game.name,
             description = game.description,
-            genre = game.genre,
-            platforms = game.platforms,
+            lastUpdate = getTimeMillis(),
             screenshots = game.screenshots,
+            developer = game.developer,
             key = game.key
         )
     }

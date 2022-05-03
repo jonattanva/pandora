@@ -33,5 +33,11 @@ private fun GridToDrawable(values: List<Int>) {
 @Preview
 @Composable
 private fun Preview() {
-    GridToDrawable(listOf(R.drawable.psychonauts))
+    GridToDrawable(
+        listOf(
+            R.drawable.psychonauts,
+            R.drawable.psychonauts,
+            R.drawable.psychonauts
+        )
+    )
 }

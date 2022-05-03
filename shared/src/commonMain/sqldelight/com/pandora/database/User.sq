@@ -1,0 +1,21 @@
+CREATE TABLE User (
+    id TEXT,
+    email TEXT NOT NULL PRIMARY KEY,
+    password TEXT NOT NULL,
+    verified INTEGER AS Boolean DEFAULT 0
+);
+
+insert:
+INSERT INTO User(id, email, password, verified) VALUES (?, ?, ?, ?);
+
+update:
+UPDATE User SET email = ?, password = ?, verified = ? WHERE id = ?;
+
+findById:
+SELECT id, email, password, verified FROM User WHERE id = ?;
+
+findByEmail:
+SELECT id, email, password, verified FROM User WHERE email = ?;
+
+exists:
+SELECT EXISTS (SELECT id FROM User WHERE email = ?);
