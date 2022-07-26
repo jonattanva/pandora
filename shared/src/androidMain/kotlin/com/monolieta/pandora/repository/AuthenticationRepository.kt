@@ -38,6 +38,7 @@ actual class AuthenticationRepository actual constructor(
             val result = Amplify.Auth.signIn(username, password)
             if (result.isSignInComplete) {
                 Amplify.Auth.getCurrentUser()?.let {
+
                     return save(
                         User(
                             id = it.userId,

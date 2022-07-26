@@ -1,0 +1,20 @@
+CREATE TABLE Genre (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    lastUpdate INTEGER
+);
+
+findById:
+SELECT id, name, lastUpdate FROM Genre WHERE id = ?;
+
+insert:
+INSERT INTO Genre(id, name, lastUpdate) VALUES (?, ?, ?);
+
+update:
+UPDATE Genre SET name = ?, lastUpdate = ? WHERE id = ?;
+
+exists:
+SELECT EXISTS (SELECT id FROM Genre WHERE id = ?);
+
+hasGenre:
+SELECT EXISTS (SELECT id FROM Genre WHERE id = ? AND lastUpdate >= ?);

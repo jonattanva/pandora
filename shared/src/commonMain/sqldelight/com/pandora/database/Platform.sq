@@ -1,0 +1,20 @@
+CREATE TABLE Platform (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    lastUpdate INTEGER
+);
+
+findById:
+SELECT id, name, lastUpdate FROM Platform WHERE id = ?;
+
+insert:
+INSERT INTO Platform(id, name, lastUpdate) VALUES (?, ?, ?);
+
+update:
+UPDATE Platform SET name = ?, lastUpdate = ? WHERE id = ?;
+
+exists:
+SELECT EXISTS (SELECT id FROM Platform WHERE id = ?);
+
+hasPlatform:
+SELECT EXISTS (SELECT id FROM Platform WHERE id = ? AND lastUpdate >= ?);

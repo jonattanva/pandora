@@ -28,7 +28,6 @@ object RepositoryModule {
     @Provides
     fun provideGameRepository(database: Database): GameRepository {
         return GameRepository(
-            url,
             queries = database.gameQueries
         )
     }

@@ -1,6 +1,6 @@
 package com.monolieta.pandora.repository
 
-import com.monolieta.pandora.dayToMillis
+import com.monolieta.pandora.util.dayToMillis
 import com.monolieta.pandora.model.http.HttpDetail
 import com.pandora.database.Game
 import com.pandora.database.GameQueries
@@ -8,13 +8,13 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.http.*
 import io.ktor.util.date.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class GameRepository(
-    private val url: String,
     private val queries: GameQueries
 ) : Repository() {
 
@@ -25,8 +25,14 @@ class GameRepository(
 
     private fun fetchByKey(key: String): Flow<Game> = flow {
         if (!hasGame(key)) {
-            val response: HttpDetail<Game> = client.get("$url/pandora/game/$key")
-                .body()
+            val response: HttpDetail<Game> = client.post(URL) {
+                setBody("fields $FIELDS; where id = $key;")
+                headers {
+                    append(HttpHeaders.Accept, "application/json")
+                    append(HttpHeaders.Authorization, "")
+                    append("Client-ID", "")
+                }
+            }.body()
 
             queries.transaction {
                 save(response.body)
@@ -78,6 +84,9 @@ class GameRepository(
     }
 
     companion object {
-        val FRESH_TIMEOUT = dayToMillis(1)
+        private val FRESH_TIMEOUT = dayToMillis(1)
+
+        private const val FIELDS = "*"
+        private const val URL = "https://api.igdb.com/v4/games"
     }
 }

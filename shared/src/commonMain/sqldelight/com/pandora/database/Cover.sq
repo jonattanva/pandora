@@ -1,0 +1,20 @@
+CREATE TABLE Cover(
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    lastUpdate INTEGER
+);
+
+findById:
+SELECT id, name, lastUpdate FROM Cover WHERE id = ?;
+
+insert:
+INSERT INTO Cover(id, name, lastUpdate) VALUES (?, ?, ?);
+
+update:
+UPDATE Cover SET name = ?, lastUpdate = ? WHERE id = ?;
+
+exists:
+SELECT EXISTS (SELECT id FROM Cover WHERE id = ?);
+
+hasCover:
+SELECT EXISTS (SELECT id FROM Cover WHERE id = ? AND lastUpdate >= ?);

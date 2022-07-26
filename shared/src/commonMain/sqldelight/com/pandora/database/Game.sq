@@ -10,9 +10,6 @@ CREATE TABLE Game (
     screenshots TEXT AS List<String> NOT NULL
 );
 
-findAll:
-SELECT * FROM Game;
-
 findById:
 SELECT * FROM Game WHERE key = ?;
 

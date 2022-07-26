@@ -1,0 +1,20 @@
+CREATE TABLE Screenshot (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    lastUpdate INTEGER
+);
+
+findById:
+SELECT id, name, lastUpdate FROM Screenshot WHERE id = ?;
+
+insert:
+INSERT INTO Screenshot(id, name, lastUpdate) VALUES (?, ?, ?);
+
+update:
+UPDATE Screenshot SET name = ?, lastUpdate = ? WHERE id = ?;
+
+exists:
+SELECT EXISTS (SELECT id FROM Screenshot WHERE id = ?);
+
+hasScreenshot:
+SELECT EXISTS (SELECT id FROM Screenshot WHERE id = ? AND lastUpdate >= ?);
