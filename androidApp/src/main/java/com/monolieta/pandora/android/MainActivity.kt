@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var amplify: Amplify
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
